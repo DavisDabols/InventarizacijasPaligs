@@ -14,4 +14,5 @@ Projektā tiek izmantots:
 
 # Izmantotie avoti
 [Kotlin documentation](https://kotlinlang.org/docs/home.html) - Kotlin dokumentācija
+
 [W3Schools](https://www.w3schools.com/html/default.asp) - Tika ņemta HTML dokumentācija
