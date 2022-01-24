@@ -1,0 +1,31 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewBag.Title = "Reģistrācija";
+}
+
+<h1>Lietotāja Reģistrācija</h1>
+
+<form method="post">
+  <fieldset>
+@*      <div asp-validation-summary="All" class="text-danger"></div>*@
+    <div class="form-group">
+      <label asp-for="Email" class="form-label mt-4">Epasta adrese</label>
+      <input asp-for="Email"  class="form-control" aria-describedby="emailHelp" placeholder="Ievadiet epasta adresi">
+      <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="Password" class="form-label mt-4">Parole</label>
+      <input asp-for="Password" class="form-control" placeholder="Parole">
+      <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="ConfirmPassword" class="form-label mt-4">Apstiprināt paroli</label>
+      <input asp-for="ConfirmPassword" class="form-control" placeholder="Parole">
+      <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </fieldset>
+</form>
