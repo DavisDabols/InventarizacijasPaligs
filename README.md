@@ -11,6 +11,7 @@ Projektā tiek izmantots:
 - MySQL
 - SQLite
 - NFC tagi
+- ASP.NET
 
 # Izmantotie avoti
 [Kotlin documentation](https://kotlinlang.org/docs/home.html) - Kotlin dokumentācija
