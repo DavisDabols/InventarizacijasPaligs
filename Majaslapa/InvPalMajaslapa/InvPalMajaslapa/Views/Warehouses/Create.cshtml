@@ -1,0 +1,24 @@
+﻿@model Warehouse
+@{
+    ViewData["Title"] = "Noliktavas";
+}
+<form method="post">
+  <fieldset>
+@*      <div asp-validation-summary="All" class="text-danger"></div>*@
+    <div class="form-group">
+      <label asp-for="Name" class="form-label mt-4">Nosaukums</label>
+      <input asp-for="Name"  class="form-control" placeholder="Mana Noliktava">
+    </div>
+    <div class="form-group">
+      <label asp-for="Address" class="form-label mt-4">Adrese</label>
+      <input asp-for="Address"  class="form-control" placeholder="Rīgas iela 1">
+    </div>
+    <div class="form-group">
+      <label asp-for="MaxCapacity" class="form-label mt-4">Maksimālā ietilpība</label>
+      <input asp-for="MaxCapacity"  class="form-control">
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </fieldset>
+</form>
