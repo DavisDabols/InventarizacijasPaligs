@@ -14,15 +14,22 @@
             <th scope="col">Nosaukums</th>
             <th scope="col">Adrese</th>
             <th scope="col">Ietilpība</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach(var obj in Model)
         {
             <tr>
-                <td>@obj.Name</td>
-                <td>@obj.Address</td>
-                <td>@obj.MaxCapacity</td>
+                <td width="35%">@obj.Name</td>
+                <td width="35%">@obj.Address</td>
+                <td width="10%">@obj.MaxCapacity</td>
+                <td width="20%">
+                    <div class="btn-group" style="float:right">
+                        <a asp-controller="Warehouses" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-warning" style="float:none">Rediģēt</a>
+                        <a asp-controller="Warehouses" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger" style="float:none">Dzēst</a>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>

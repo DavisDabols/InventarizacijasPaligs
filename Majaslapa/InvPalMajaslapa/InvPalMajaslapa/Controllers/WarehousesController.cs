@@ -41,6 +41,63 @@ namespace InvPalMajaslapa.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        // GET
+        public IActionResult Edit(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var warehouseFromDb = _db.Warehouses.Find(id);
+            if (warehouseFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(warehouseFromDb);
+        }
+
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Warehouse obj)
+        {
+            var user = await userManager.GetUserAsync(User);
+            obj.UserId = user.Id;
+            _db.Warehouses.Update(obj);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        // GET
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var warehouseFromDb = _db.Warehouses.Find(id);
+            if (warehouseFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(warehouseFromDb);
+        }
+
+        // POST
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePOST(int? id)
+        {
+            var obj = _db.Warehouses.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.Warehouses.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
 
