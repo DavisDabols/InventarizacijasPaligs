@@ -1,4 +1,4 @@
-﻿@inject SignInManager<IdentityUser> signInManager;
+﻿@inject SignInManager<ApplicationUser> signInManager;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +30,7 @@
                                 <a class="nav-link" href="#">Profils</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Noliktavas</a>
+                                <a class="nav-link" asp-controller="Warehouses" asp-action="Index">Noliktavas</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Darbinieki</a>

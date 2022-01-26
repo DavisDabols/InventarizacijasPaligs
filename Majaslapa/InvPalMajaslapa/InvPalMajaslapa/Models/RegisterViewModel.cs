@@ -4,6 +4,9 @@ namespace InvPalMajaslapa.Models
 {
     public class RegisterViewModel
     {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string CompanyName { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }

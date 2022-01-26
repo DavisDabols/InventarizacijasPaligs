@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Warehouse>
+@{
+    ViewData["Title"] = "Noliktavas";
+}
+
+<h1>Noliktavas</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Nosaukums</th>
+            <th scope="col">Adrese</th>
+            <th scope="col">Ietilpība</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+            <tr>
+                <td>@obj.Name</td>
+                <td>@obj.Address</td>
+                <td>@obj.MaxCapacity</td>
+            </tr>
+        }
+    </tbody>
+</table>
