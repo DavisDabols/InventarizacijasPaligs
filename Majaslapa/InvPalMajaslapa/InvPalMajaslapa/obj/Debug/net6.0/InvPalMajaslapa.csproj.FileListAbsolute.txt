@@ -128,3 +128,4 @@ D:\Programming\D42-DavisDabols-inventarizacijasPaligs\Majaslapa\InvPalMajaslapa\
 D:\Programming\D42-DavisDabols-inventarizacijasPaligs\Majaslapa\InvPalMajaslapa\InvPalMajaslapa\obj\Debug\net6.0\ref\InvPalMajaslapa.dll
 D:\Programming\D42-DavisDabols-inventarizacijasPaligs\Majaslapa\InvPalMajaslapa\InvPalMajaslapa\obj\Debug\net6.0\InvPalMajaslapa.pdb
 D:\Programming\D42-DavisDabols-inventarizacijasPaligs\Majaslapa\InvPalMajaslapa\InvPalMajaslapa\obj\Debug\net6.0\InvPalMajaslapa.genruntimeconfig.cache
+D:\Programming\D42-DavisDabols-inventarizacijasPaligs\Majaslapa\InvPalMajaslapa\InvPalMajaslapa\bin\Debug\net6.0\BCrypt.Net-Next.dll
