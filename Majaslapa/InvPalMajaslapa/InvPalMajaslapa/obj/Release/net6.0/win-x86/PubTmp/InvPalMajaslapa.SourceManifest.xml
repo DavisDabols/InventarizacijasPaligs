@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="D:\Programming\D42-DavisDabols-inventarizacijasPaligs\Majaslapa\InvPalMajaslapa\InvPalMajaslapa\obj\Release\net6.0\win-x86\PubTmp\Out\" />
+  <dbfullsql path="D:\Programming\D42-DavisDabols-inventarizacijasPaligs\Majaslapa\InvPalMajaslapa\InvPalMajaslapa\obj\Release\net6.0\win-x86\PubTmp\EFSQLScripts\InvPalMajaslapa.Data.ApplicationDbContext.sql" />
+</sitemanifest>
