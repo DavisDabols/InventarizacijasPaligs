@@ -17,3 +17,12 @@ Projektā tiek izmantots:
 [Kotlin documentation](https://kotlinlang.org/docs/home.html) - Kotlin dokumentācija
 
 [W3Schools](https://www.w3schools.com/html/default.asp) - Tika ņemta HTML dokumentācija
+
+[Learn ASP.NET Core MVC (.NET 6) - Full Course](https://www.youtube.com/watch?v=hZ1DASYd9rk) - .NET 6 MVC kurss
+
+[ASP.NET core tutorial for beginners](https://www.youtube.com/playlist?list=PL6n9fhu94yhVkdrusLaQsfERmL_Jh4XmU) - .NET Core pamācības
+
+[BCrypt](https://github.com/BcryptNet/bcrypt.net) - BCrypt.NET dokumentācija
+
+# Mājaslapas links
+[Links](https://invpalmajaslapa.azurewebsites.net)
