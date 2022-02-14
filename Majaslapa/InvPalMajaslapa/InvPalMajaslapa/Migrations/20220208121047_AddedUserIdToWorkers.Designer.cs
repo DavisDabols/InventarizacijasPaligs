@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvPalMajaslapa.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220214112641_AddedIdentityAndOtherTables")]
-    partial class AddedIdentityAndOtherTables
+    [Migration("20220208121047_AddedUserIdToWorkers")]
+    partial class AddedUserIdToWorkers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -103,9 +103,11 @@ namespace InvPalMajaslapa.Migrations
 
             modelBuilder.Entity("InvPalMajaslapa.Models.Warehouse", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -137,9 +139,11 @@ namespace InvPalMajaslapa.Migrations
 
             modelBuilder.Entity("InvPalMajaslapa.Models.Worker", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");

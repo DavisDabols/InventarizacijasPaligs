@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAe/kQVR2Wp0iIfLJWP346vwAAAAACAAAAAAAQZgAAAAEAACAAAABDqTOTUKwkGefGFDUwCbYcvm5MOajN5amIzxL/syKiPQAAAAAOgAAAAAIAACAAAACZzGzeINzmMUQOekRqN/slDUv93LvbhooPc5o4I132pYAAAAAzDs97IpWn2m8DxrIP+wKduubihTKeuCxuCetHlUDP92xFvOHIGFn71e73JipZNzBzTRwt67OMyyNwsBTYXKPfV5bUB8nJmpIc/19QOOKDWEduQcS5rO8VOWdj41q9/YlHhYh9Ee5s2vpqhrtOJKJnBSOGSesP98GPAQ3qyNzBW0AAAAAQ+VXWHRTu5CXnBfDmiQyr2QNKHde/U4F/SPKhmdocY04D7t1CfhKGqcp8dse1cQjQN7WRdweMsb0rkHy0dnXM</EncryptedPassword>
+    <History>True|2022-02-09T13:44:48.0145166Z;True|2022-02-09T13:15:11.8356671+02:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=tcp:davisdabols.database.windows.net,1433%3bInitial Catalog=InvPaligs%3bPersist Security Info=False%3bUser ID=admin-sql%3bPassword=Password12%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="InvPalMajaslapa.Data.ApplicationDbContext">
+      <Value>Server=tcp:davisdabols.database.windows.net,1433%3bInitial Catalog=InvPaligs%3bPersist Security Info=False%3bUser ID=admin-sql%3bPassword=Password12%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
