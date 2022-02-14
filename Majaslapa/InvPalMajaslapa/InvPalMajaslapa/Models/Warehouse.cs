@@ -5,7 +5,7 @@ namespace InvPalMajaslapa.Models
     public class Warehouse
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
         public string Name { get; set; }
         public string Address { get; set; }

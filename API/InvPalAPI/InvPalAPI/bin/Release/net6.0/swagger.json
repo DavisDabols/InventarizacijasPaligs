@@ -1,0 +1,161 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "InvPalAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "version": "1.0"
+  },
+  "paths": {
+    "/warehouseitems": {
+      "get": {
+        "tags": [
+          "InvPalAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Warehouse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workeritems": {
+      "get": {
+        "tags": [
+          "InvPalAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Worker"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/itemsitems": {
+      "get": {
+        "tags": [
+          "InvPalAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Items"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Items": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "createdDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "warehouseId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "Warehouse": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "maxCapacity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "createdDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "Worker": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "format": "password",
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

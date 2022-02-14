@@ -12,5 +12,6 @@ namespace InvPalMajaslapa.Data
 
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<Worker> Workers { get; set; }
+        public DbSet<Items> Items { get; set; }
     }
 }

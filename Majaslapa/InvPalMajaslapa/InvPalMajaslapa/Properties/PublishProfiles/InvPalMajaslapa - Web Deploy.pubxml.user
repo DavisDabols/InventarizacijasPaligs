@@ -7,7 +7,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAe/kQVR2Wp0iIfLJWP346vwAAAAACAAAAAAAQZgAAAAEAACAAAABDqTOTUKwkGefGFDUwCbYcvm5MOajN5amIzxL/syKiPQAAAAAOgAAAAAIAACAAAACZzGzeINzmMUQOekRqN/slDUv93LvbhooPc5o4I132pYAAAAAzDs97IpWn2m8DxrIP+wKduubihTKeuCxuCetHlUDP92xFvOHIGFn71e73JipZNzBzTRwt67OMyyNwsBTYXKPfV5bUB8nJmpIc/19QOOKDWEduQcS5rO8VOWdj41q9/YlHhYh9Ee5s2vpqhrtOJKJnBSOGSesP98GPAQ3qyNzBW0AAAAAQ+VXWHRTu5CXnBfDmiQyr2QNKHde/U4F/SPKhmdocY04D7t1CfhKGqcp8dse1cQjQN7WRdweMsb0rkHy0dnXM</EncryptedPassword>
-    <History>True|2022-02-09T13:44:48.0145166Z;True|2022-02-09T13:15:11.8356671+02:00;</History>
+    <History>True|2022-02-14T13:19:22.8334360Z;True|2022-02-09T15:44:48.0145166+02:00;True|2022-02-09T13:15:11.8356671+02:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <DestinationConnectionStrings Include="DefaultConnection">
