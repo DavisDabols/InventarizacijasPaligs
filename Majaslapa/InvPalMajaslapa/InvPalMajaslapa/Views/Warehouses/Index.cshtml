@@ -26,6 +26,7 @@
                 <td width="10%">@obj.MaxCapacity</td>
                 <td width="20%">
                     <div class="btn-group" style="float:right">
+                        <a asp-controller="Items" asp-action="Index" asp-route-id="@obj.Id" class="btn btn-success" style="float:none">Atvērt</a>
                         <a asp-controller="Warehouses" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-warning" style="float:none">Rediģēt</a>
                         <a asp-controller="Warehouses" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger" style="float:none">Dzēst</a>
                     </div>

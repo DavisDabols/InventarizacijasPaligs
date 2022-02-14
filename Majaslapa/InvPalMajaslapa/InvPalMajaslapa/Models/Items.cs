@@ -2,15 +2,15 @@
 
 namespace InvPalMajaslapa.Models
 {
-    public class Warehouse
+    public class Items
     {
         [Key]
         public Guid Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Address { get; set; }
-        public int MaxCapacity { get; set; }
+        public string Description { get; set; }
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+        public Guid WarehouseId { get; set; }
         public string UserId { get; set; }
     }
 }
