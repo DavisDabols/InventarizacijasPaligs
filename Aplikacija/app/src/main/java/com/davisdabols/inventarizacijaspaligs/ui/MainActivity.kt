@@ -1,4 +1,4 @@
-package com.davisdabols.inventarizacijaspaligs
+package com.davisdabols.inventarizacijaspaligs.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
