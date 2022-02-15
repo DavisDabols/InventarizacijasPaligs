@@ -14,8 +14,27 @@ var app = builder.Build();
 app.MapGet("/warehouseitems", async (ApplicationDbContext db) =>
     await db.Warehouses.ToListAsync());
 
-app.MapGet("/workeritems", async (ApplicationDbContext db) =>
-    await db.Workers.ToListAsync());
+app.MapGet("/workeritems/email/{email}/password/{password}", async (string email, string password, ApplicationDbContext db) => 
+{
+    IEnumerable<Worker> workers = await db.Workers.Where(w => w.Email.Equals(email)).ToListAsync();
+    List<Worker> workersList = new List<Worker>();
+    foreach (Worker worker in workers)
+    {
+        if(BCrypt.Net.BCrypt.Verify(password, worker.Password) == true)
+        {
+            workersList.Add(worker);
+        }
+    }
+    if(workersList.Count() == 0)
+    {
+        throw new Exception("Profile not found");
+    }
+    if (workersList.Count() > 1)
+    {
+        throw new Exception("Multiple profiles found");
+    }
+    return workersList;
+});
 
 app.MapGet("/itemsitems", async (ApplicationDbContext db) =>
     await db.Items.ToListAsync());
