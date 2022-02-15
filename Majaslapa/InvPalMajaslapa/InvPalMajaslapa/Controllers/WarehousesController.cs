@@ -44,9 +44,9 @@ namespace InvPalMajaslapa.Controllers
         }
 
         // GET
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(Guid? id)
         {
-            if(id == null || id == 0)
+            if(id == null)
             {
                 return NotFound();
             }
@@ -72,9 +72,9 @@ namespace InvPalMajaslapa.Controllers
         }
 
         // GET
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(Guid? id)
         {
-            if (id == null || id == 0)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -89,7 +89,7 @@ namespace InvPalMajaslapa.Controllers
         // POST
         [HttpPost,ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePOST(int? id)
+        public IActionResult DeletePOST(Guid? id)
         {
             var obj = _db.Warehouses.Find(id);
             if (obj == null)
