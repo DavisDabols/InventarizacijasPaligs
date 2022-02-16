@@ -2,23 +2,30 @@ package com.davisdabols.inventarizacijaspaligs.ui
 
 import androidx.lifecycle.ViewModel
 import com.davisdabols.inventarizacijaspaligs.common.launchIO
-import com.davisdabols.inventarizacijaspaligs.data.Request
-import com.davisdabols.inventarizacijaspaligs.data.models.Worker
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import timber.log.Timber
+import com.davisdabols.inventarizacijaspaligs.data.AppRepository
+import com.davisdabols.inventarizacijaspaligs.data.models.WorkerModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.*
+import java.lang.Exception
+import javax.inject.Inject
 
-class AppViewModel : ViewModel() {
-
-    private val _loggedInUser = MutableSharedFlow<Worker>(replay = 1)
-
-    val loggedInUser: SharedFlow<Worker> = _loggedInUser
+@HiltViewModel
+class AppViewModel @Inject constructor(
+    private val repository: AppRepository
+) : ViewModel() {
+    private val _loggedInUser = MutableStateFlow<WorkerModel?>(null)
+    private val _error = MutableSharedFlow<String>()
+    val loggedInUser = _loggedInUser.asStateFlow()
+    val error = _error.asSharedFlow()
 
     fun logIn(email: String, password: String) {
         launchIO {
-            val worker: Worker = Request().checkLogin(email, password)
-            _loggedInUser.tryEmit(worker)
+            try {
+                val workerModel = repository.checkLogin(email, password)
+                _loggedInUser.emit(workerModel)
+            } catch (e: Exception) {
+                _error.emit("Lietotājs nav atrasts")
+            }
         }
     }
-
 }

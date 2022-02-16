@@ -33,7 +33,7 @@ app.MapGet("/workeritems/email/{email}/password/{password}", async (string email
     {
         throw new Exception("Multiple profiles found");
     }
-    return workersList;
+    return workersList.First();
 });
 
 app.MapGet("/itemsitems", async (ApplicationDbContext db) =>
