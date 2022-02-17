@@ -4,8 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.davisdabols.inventarizacijaspaligs.common.WORKER_TABLE
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 @Entity(tableName = WORKER_TABLE)
 data class WorkerModel (

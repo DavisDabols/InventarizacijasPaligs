@@ -11,8 +11,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     ));
 var app = builder.Build();
 
-app.MapGet("/warehouseitems", async (ApplicationDbContext db) =>
-    await db.Warehouses.ToListAsync());
+app.MapGet("/warehouseitems/userId/{userId}", async (string userId, ApplicationDbContext db) =>
+    await db.Warehouses.Where(x => x.UserId == userId).ToListAsync());
 
 app.MapGet("/workeritems/email/{email}/password/{password}", async (string email, string password, ApplicationDbContext db) => 
 {

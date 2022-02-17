@@ -15,8 +15,17 @@ class AppViewModel @Inject constructor(
 ) : ViewModel() {
     private val _loggedInUser = MutableStateFlow<WorkerModel?>(null)
     private val _error = MutableSharedFlow<String>()
+    private val _logInStatus = MutableSharedFlow<Boolean>(replay=1)
     val loggedInUser = _loggedInUser.asStateFlow()
     val error = _error.asSharedFlow()
+    val logInStatus = _logInStatus.asSharedFlow()
+
+    fun checkLoggedIn() {
+        launchIO {
+            val logInStatus = repository.checkLoggedIn()
+            _logInStatus.emit(logInStatus)
+        }
+    }
 
     fun logIn(email: String, password: String) {
         launchIO {
@@ -26,6 +35,13 @@ class AppViewModel @Inject constructor(
             } catch (e: Exception) {
                 _error.emit("Lietotājs nav atrasts")
             }
+        }
+    }
+
+    fun logOut() {
+        launchIO {
+            repository.logOut()
+            _loggedInUser.emit(null)
         }
     }
 }

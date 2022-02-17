@@ -11,4 +11,10 @@ interface WorkerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWorker(workerModel: WorkerModel)
+
+    @Query("SELECT EXISTS(SELECT 1 FROM WORKER_TABLE)")
+    fun existsWorker(): Boolean
+
+    @Query("DELETE FROM WORKER_TABLE")
+    fun deleteWorker()
 }

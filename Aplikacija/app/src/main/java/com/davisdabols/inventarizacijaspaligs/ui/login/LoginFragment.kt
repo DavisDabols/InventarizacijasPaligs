@@ -8,11 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.davisdabols.inventarizacijaspaligs.R
+import com.davisdabols.inventarizacijaspaligs.common.openFragment
 import com.davisdabols.inventarizacijaspaligs.databinding.FragmentLoginBinding
 import com.davisdabols.inventarizacijaspaligs.ui.AppViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -32,6 +33,16 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.checkLoggedIn()
+
+        lifecycleScope.launchWhenCreated {
+            viewModel.logInStatus.collectLatest { status ->
+                if (status) {
+                    openFragment(R.id.navigation_menu)
+                }
+            }
+        }
+
         binding.submitInput.setOnClickListener {
             viewModel.logIn(
                 binding.emailInput.text.toString(),
@@ -42,8 +53,9 @@ class LoginFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             viewModel.loggedInUser.collectLatest { worker ->
                 if (worker != null) {
-                    Toast.makeText(context, "$worker", Toast.LENGTH_SHORT)
-                        .show()
+                    binding.emailInput.text.clear()
+                    binding.passwordInput.text.clear()
+                    openFragment(R.id.navigation_menu)
                 }
             }
         }

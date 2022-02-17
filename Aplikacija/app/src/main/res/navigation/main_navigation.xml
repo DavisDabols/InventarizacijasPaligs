@@ -9,4 +9,8 @@
         android:id="@+id/navigation_login"
         android:name="com.davisdabols.inventarizacijaspaligs.ui.login.LoginFragment" />
 
+    <fragment
+        android:id="@+id/navigation_menu"
+        android:name="com.davisdabols.inventarizacijaspaligs.ui.menu.MenuFragment" />
+
 </navigation>
