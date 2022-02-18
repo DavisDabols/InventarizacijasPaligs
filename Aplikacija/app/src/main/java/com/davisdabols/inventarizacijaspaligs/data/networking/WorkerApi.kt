@@ -1,5 +1,6 @@
 package com.davisdabols.inventarizacijaspaligs.data.networking
 
+import com.davisdabols.inventarizacijaspaligs.data.models.WarehouseModel
 import com.davisdabols.inventarizacijaspaligs.data.models.WorkerModel
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,4 +11,9 @@ interface WorkerApi {
         @Path("email") email: String,
         @Path("password") password: String
     ): WorkerModel
+
+    @GET("warehouseitems/userId/{userId}")
+    suspend fun getWarehouses(
+        @Path("userId") AdminId: String
+    ): List<WarehouseModel>
 }

@@ -5,4 +5,6 @@
     <string name="pierakst_ties">Pierakstīties</string>
     <string name="noliktavas">Noliktavas</string>
     <string name="atsl_gties">Atslēgties</string>
+    <string name="nav_atrastas_noliktavas">Nav atrastas noliktavas</string>
+    <string name="atpakal">Atpakaļ</string>
 </resources>

@@ -1,8 +1,10 @@
 package com.davisdabols.inventarizacijaspaligs.data
 
 import com.davisdabols.inventarizacijaspaligs.data.cache.AppDatabase
+import com.davisdabols.inventarizacijaspaligs.data.models.WarehouseModel
 import com.davisdabols.inventarizacijaspaligs.data.models.WorkerModel
 import com.davisdabols.inventarizacijaspaligs.data.networking.WorkerApi
+import kotlinx.coroutines.flow.first
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -10,10 +12,9 @@ class AppRepository @Inject constructor(
     private val api: WorkerApi,
     private val db: AppDatabase,
 ) {
-    suspend fun checkLoggedIn(): Boolean {
-        val exists = db.workerDao().existsWorker()
-        Timber.d("exists: %s", exists)
-        return exists
+    suspend fun checkLoggedIn(): WorkerModel? {
+        val worker = db.workerDao().getWorker()
+        return worker
     }
 
     suspend fun checkLogin(email: String, password: String): WorkerModel {
@@ -24,5 +25,14 @@ class AppRepository @Inject constructor(
 
     suspend fun logOut() {
         db.workerDao().deleteWorker()
+        db.warehouseDao().deleteWarehouses()
+    }
+
+    suspend fun getWarehouses(adminId: String): List<WarehouseModel> {
+        val warehouses = api.getWarehouses(adminId)
+        warehouses.forEach { warehouse ->
+            db.warehouseDao().insertWarehouse(warehouse)
+        }
+        return warehouses
     }
 }

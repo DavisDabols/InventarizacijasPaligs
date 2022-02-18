@@ -28,6 +28,10 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.openWarehouses.setOnClickListener {
+            openFragment(R.id.navigation_warehouses)
+        }
+
         binding.logOut.setOnClickListener {
             viewModel.logOut()
             openFragment(R.id.navigation_login)
