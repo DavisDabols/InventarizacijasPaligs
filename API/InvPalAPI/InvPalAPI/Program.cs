@@ -36,8 +36,8 @@ app.MapGet("/workeritems/email/{email}/password/{password}", async (string email
     return workersList.First();
 });
 
-app.MapGet("/itemsitems", async (ApplicationDbContext db) =>
-    await db.Items.ToListAsync());
+app.MapGet("/itemsitems/warehouseId/{warehouseId}", async (Guid warehouseId, ApplicationDbContext db) =>
+    await db.Items.Where(x => x.WarehouseId == warehouseId).ToListAsync());
 
 app.Run();
 
