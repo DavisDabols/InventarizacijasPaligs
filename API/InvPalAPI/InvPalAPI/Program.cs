@@ -39,6 +39,15 @@ app.MapGet("/workeritems/email/{email}/password/{password}", async (string email
 app.MapGet("/itemsitems/warehouseId/{warehouseId}", async (Guid warehouseId, ApplicationDbContext db) =>
     await db.Items.Where(x => x.WarehouseId == warehouseId).ToListAsync());
 
+app.MapPost("/itemsitems", async (Items item, ApplicationDbContext db) =>
+{
+    item.Id = Guid.NewGuid();
+    db.Items.Add(item);
+    await db.SaveChangesAsync();
+
+    return Results.Created($"/itemsitems/{item.Id}", item);
+});
+
 app.Run();
 
 class Warehouse

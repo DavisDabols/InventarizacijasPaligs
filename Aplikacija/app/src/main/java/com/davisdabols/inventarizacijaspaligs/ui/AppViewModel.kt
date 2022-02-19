@@ -3,6 +3,7 @@ package com.davisdabols.inventarizacijaspaligs.ui
 import androidx.lifecycle.ViewModel
 import com.davisdabols.inventarizacijaspaligs.common.launchIO
 import com.davisdabols.inventarizacijaspaligs.data.AppRepository
+import com.davisdabols.inventarizacijaspaligs.data.models.ItemsModel
 import com.davisdabols.inventarizacijaspaligs.data.models.WarehouseModel
 import com.davisdabols.inventarizacijaspaligs.data.models.WorkerModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,12 +21,15 @@ class AppViewModel @Inject constructor(
     private val _error = MutableSharedFlow<String>()
     private val _logInStatus = MutableSharedFlow<Boolean>(replay=1)
     private val _warehouses = MutableSharedFlow<List<WarehouseModel>>()
+    private val _items = MutableSharedFlow<List<ItemsModel>>()
     val loggedInUser = _loggedInUser.asStateFlow()
     val error = _error.asSharedFlow()
     val logInStatus = _logInStatus.asSharedFlow()
     val warehouses = _warehouses.asSharedFlow()
+    val items = _items.asSharedFlow()
 
     var selectedWarehouse: WarehouseModel? = null
+    var selectedItem: ItemsModel? = null
 
     fun checkLoggedIn() {
         launchIO {
@@ -59,11 +63,15 @@ class AppViewModel @Inject constructor(
 
     fun getWarehouses() {
         launchIO {
-            Timber.d("Test: %s", loggedInUser)
             val workerModel = repository.getWarehouses(loggedInUser.value!!.AdminID)
-            if (workerModel != null) {
-                _warehouses.emit(workerModel)
-            }
+            _warehouses.emit(workerModel)
+        }
+    }
+
+    fun getItems() {
+        launchIO {
+            val itemsModel = repository.getItems(selectedWarehouse!!.ID)
+            _items.emit(itemsModel)
         }
     }
 }

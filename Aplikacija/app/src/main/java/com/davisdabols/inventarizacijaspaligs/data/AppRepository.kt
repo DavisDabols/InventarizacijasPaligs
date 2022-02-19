@@ -1,6 +1,7 @@
 package com.davisdabols.inventarizacijaspaligs.data
 
 import com.davisdabols.inventarizacijaspaligs.data.cache.AppDatabase
+import com.davisdabols.inventarizacijaspaligs.data.models.ItemsModel
 import com.davisdabols.inventarizacijaspaligs.data.models.WarehouseModel
 import com.davisdabols.inventarizacijaspaligs.data.models.WorkerModel
 import com.davisdabols.inventarizacijaspaligs.data.networking.WorkerApi
@@ -34,5 +35,13 @@ class AppRepository @Inject constructor(
             db.warehouseDao().insertWarehouse(warehouse)
         }
         return warehouses
+    }
+
+    suspend fun getItems(warehouseId: String): List<ItemsModel> {
+        val items = api.getItems(warehouseId)
+        items.forEach { item ->
+            db.itemsDao().insertItems(item)
+        }
+        return items
     }
 }

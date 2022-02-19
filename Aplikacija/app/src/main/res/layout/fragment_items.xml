@@ -7,23 +7,23 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/warehouse_list"
+        android:id="@+id/item_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:itemCount="3"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_warehouse"
+        tools:listitem="@layout/item_items"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/close_warehouses" />
+        app:layout_constraintBottom_toTopOf="@id/close_items_list" />
 
     <TextView
-        android:id="@+id/empty_warehouse"
+        android:id="@+id/empty_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nav_atrastas_noliktavas"
+        android:text="@string/nav_atrastas_preces"
         android:gravity="center"
         android:textSize="16sp"
         android:fontFamily="sans-serif-medium"
@@ -31,10 +31,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/close_warehouses" />
+        app:layout_constraintBottom_toTopOf="@id/close_items_list" />
 
     <Button
-        android:id="@+id/close_warehouses"
+        android:id="@+id/add_item"
+        android:layout_width="300dp"
+        android:layout_margin="8dp"
+        android:layout_height="48dp"
+        android:text="@string/pievienot"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/close_items_list"/>
+
+    <Button
+        android:id="@+id/close_items_list"
         android:layout_width="300dp"
         android:layout_margin="16dp"
         android:layout_height="48dp"
