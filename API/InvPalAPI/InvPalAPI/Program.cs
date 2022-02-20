@@ -11,9 +11,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     ));
 var app = builder.Build();
 
+//GET warehouses
 app.MapGet("/warehouseitems/userId/{userId}", async (string userId, ApplicationDbContext db) =>
     await db.Warehouses.Where(x => x.UserId == userId).ToListAsync());
 
+//GET workers
 app.MapGet("/workeritems/email/{email}/password/{password}", async (string email, string password, ApplicationDbContext db) => 
 {
     IEnumerable<Worker> workers = await db.Workers.Where(w => w.Email.Equals(email)).ToListAsync();
@@ -36,9 +38,11 @@ app.MapGet("/workeritems/email/{email}/password/{password}", async (string email
     return workersList.First();
 });
 
+//GET items
 app.MapGet("/itemsitems/warehouseId/{warehouseId}", async (Guid warehouseId, ApplicationDbContext db) =>
     await db.Items.Where(x => x.WarehouseId == warehouseId).ToListAsync());
 
+//POST items
 app.MapPost("/itemsitems", async (Items item, ApplicationDbContext db) =>
 {
     item.Id = Guid.NewGuid();

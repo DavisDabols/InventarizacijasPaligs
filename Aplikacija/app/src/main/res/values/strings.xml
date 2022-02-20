@@ -9,4 +9,6 @@
     <string name="atpakal">Atpakaļ</string>
     <string name="nav_atrastas_preces">Nav atrastas preces</string>
     <string name="pievienot">Pievienot</string>
+    <string name="ievadiet_nosaukumu">Ievadiet nosaukumu</string>
+    <string name="ievadiet_aprakstu">Ievadiet aprakstu</string>
 </resources>

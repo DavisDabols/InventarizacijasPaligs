@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.davisdabols.inventarizacijaspaligs.common.launchIO
 import com.davisdabols.inventarizacijaspaligs.data.AppRepository
 import com.davisdabols.inventarizacijaspaligs.data.models.ItemsModel
+import com.davisdabols.inventarizacijaspaligs.data.models.ItemsPostModel
 import com.davisdabols.inventarizacijaspaligs.data.models.WarehouseModel
 import com.davisdabols.inventarizacijaspaligs.data.models.WorkerModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -72,6 +73,17 @@ class AppViewModel @Inject constructor(
         launchIO {
             val itemsModel = repository.getItems(selectedWarehouse!!.ID)
             _items.emit(itemsModel)
+        }
+    }
+
+    fun postItems(title: String, description: String) {
+        val item = ItemsPostModel(title, description, selectedWarehouse!!.ID, loggedInUser.value!!.AdminID)
+        launchIO {
+            try {
+                repository.postItems(item)
+            } catch (e: Exception) {
+                _error.emit("Kļūda pievienošanā")
+            }
         }
     }
 }

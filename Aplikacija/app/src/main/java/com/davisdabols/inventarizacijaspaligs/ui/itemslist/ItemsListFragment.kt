@@ -50,6 +50,10 @@ class ItemsListFragment : Fragment() {
             openFragment(R.id.navigation_warehouses)
         }
 
+        binding.addItem.setOnClickListener {
+            openFragment(R.id.navigation_add_items)
+        }
+
         lifecycleScope.launchWhenCreated {
             viewModel.items.collect() { items ->
                 binding.emptyItems.visibility = if (items.isEmpty()) {

@@ -2,6 +2,7 @@ package com.davisdabols.inventarizacijaspaligs.data
 
 import com.davisdabols.inventarizacijaspaligs.data.cache.AppDatabase
 import com.davisdabols.inventarizacijaspaligs.data.models.ItemsModel
+import com.davisdabols.inventarizacijaspaligs.data.models.ItemsPostModel
 import com.davisdabols.inventarizacijaspaligs.data.models.WarehouseModel
 import com.davisdabols.inventarizacijaspaligs.data.models.WorkerModel
 import com.davisdabols.inventarizacijaspaligs.data.networking.WorkerApi
@@ -43,5 +44,9 @@ class AppRepository @Inject constructor(
             db.itemsDao().insertItems(item)
         }
         return items
+    }
+
+    suspend fun postItems(item: ItemsPostModel) {
+        api.postItems(item)
     }
 }
