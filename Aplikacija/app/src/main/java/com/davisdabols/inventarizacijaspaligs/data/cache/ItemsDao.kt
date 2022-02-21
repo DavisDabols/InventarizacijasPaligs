@@ -17,4 +17,7 @@ interface ItemsDao {
 
     @Query("DELETE FROM ITEMS_TABLE")
     fun deleteItems()
+
+    @Query("DELETE FROM ITEMS_TABLE WHERE ID = :id")
+    suspend fun deleteSpecificItem(id: String)
 }

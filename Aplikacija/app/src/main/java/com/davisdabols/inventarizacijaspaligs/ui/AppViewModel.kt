@@ -86,4 +86,10 @@ class AppViewModel @Inject constructor(
             }
         }
     }
+
+    fun deleteItems() {
+        launchIO {
+            repository.deleteItems(selectedItem!!.ID)
+        }
+    }
 }

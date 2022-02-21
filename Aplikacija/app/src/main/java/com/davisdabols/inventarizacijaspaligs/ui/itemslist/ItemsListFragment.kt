@@ -25,7 +25,7 @@ class ItemsListFragment : Fragment() {
         ItemsListAdapter { items ->
             Timber.d("Note item clicked: $items")
             viewModel.selectedItem = items
-            //openFragment(R.id.navigation_items_list)
+            openFragment(R.id.navigation_view_item)
         }
     }
 
@@ -40,6 +40,8 @@ class ItemsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.selectedItem = null;
 
         viewModel.getItems()
 

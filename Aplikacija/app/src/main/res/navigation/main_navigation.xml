@@ -28,4 +28,9 @@
         android:name="com.davisdabols.inventarizacijaspaligs.ui.additem.AddItemFragment"
     />
 
+    <fragment
+        android:id="@+id/navigation_view_item"
+        android:name="com.davisdabols.inventarizacijaspaligs.ui.viewitem.ViewItemFragment"
+    />
+
 </navigation>

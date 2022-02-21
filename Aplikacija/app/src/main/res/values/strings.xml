@@ -11,4 +11,6 @@
     <string name="pievienot">Pievienot</string>
     <string name="ievadiet_nosaukumu">Ievadiet nosaukumu</string>
     <string name="ievadiet_aprakstu">Ievadiet aprakstu</string>
+    <string name="dz_st">Dzēst</string>
+    <string name="redi_t">Rediģēt</string>
 </resources>

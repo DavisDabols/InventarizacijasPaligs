@@ -52,6 +52,19 @@ app.MapPost("/itemsitems", async (Items item, ApplicationDbContext db) =>
     return Results.Created($"/itemsitems/{item.Id}", item);
 });
 
+//DELETE items
+app.MapDelete("/itemsitems/itemId/{Id}", async (Guid Id, ApplicationDbContext db) =>
+{
+    if (await db.Items.FindAsync(Id) is Items item)
+    {
+        db.Items.Remove(item);
+        await db.SaveChangesAsync();
+        return Results.Ok(item);
+    }
+
+    return Results.NotFound();
+});
+
 app.Run();
 
 class Warehouse

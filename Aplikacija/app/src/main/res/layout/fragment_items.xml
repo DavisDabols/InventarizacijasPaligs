@@ -36,7 +36,6 @@
     <Button
         android:id="@+id/add_item"
         android:layout_width="300dp"
-        android:layout_margin="8dp"
         android:layout_height="48dp"
         android:text="@string/pievienot"
         app:layout_constraintStart_toStartOf="parent"

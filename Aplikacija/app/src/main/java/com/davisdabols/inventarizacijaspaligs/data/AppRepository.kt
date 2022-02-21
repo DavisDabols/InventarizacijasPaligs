@@ -28,6 +28,7 @@ class AppRepository @Inject constructor(
     suspend fun logOut() {
         db.workerDao().deleteWorker()
         db.warehouseDao().deleteWarehouses()
+        db.itemsDao().deleteItems()
     }
 
     suspend fun getWarehouses(adminId: String): List<WarehouseModel> {
@@ -48,5 +49,10 @@ class AppRepository @Inject constructor(
 
     suspend fun postItems(item: ItemsPostModel) {
         api.postItems(item)
+    }
+
+    suspend fun deleteItems(id: String) {
+        api.deleteItems(id)
+        db.itemsDao().deleteSpecificItem(id)
     }
 }
