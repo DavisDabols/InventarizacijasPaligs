@@ -1,9 +1,6 @@
 package com.davisdabols.inventarizacijaspaligs.data.networking
 
-import com.davisdabols.inventarizacijaspaligs.data.models.ItemsModel
-import com.davisdabols.inventarizacijaspaligs.data.models.ItemsPostModel
-import com.davisdabols.inventarizacijaspaligs.data.models.WarehouseModel
-import com.davisdabols.inventarizacijaspaligs.data.models.WorkerModel
+import com.davisdabols.inventarizacijaspaligs.data.models.*
 import retrofit2.http.*
 
 interface WorkerApi {
@@ -31,5 +28,11 @@ interface WorkerApi {
     @DELETE("itemsitems/itemId/{itemId}")
     suspend fun deleteItems(
         @Path("itemId") ItemId: String
+    )
+
+    @PUT("itemsitems/itemId/{itemId}")
+    suspend fun putItems(
+        @Path("itemId") ItemId: String,
+        @Body item: ItemsPutModel
     )
 }

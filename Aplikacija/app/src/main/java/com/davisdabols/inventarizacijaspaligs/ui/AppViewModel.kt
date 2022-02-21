@@ -3,10 +3,7 @@ package com.davisdabols.inventarizacijaspaligs.ui
 import androidx.lifecycle.ViewModel
 import com.davisdabols.inventarizacijaspaligs.common.launchIO
 import com.davisdabols.inventarizacijaspaligs.data.AppRepository
-import com.davisdabols.inventarizacijaspaligs.data.models.ItemsModel
-import com.davisdabols.inventarizacijaspaligs.data.models.ItemsPostModel
-import com.davisdabols.inventarizacijaspaligs.data.models.WarehouseModel
-import com.davisdabols.inventarizacijaspaligs.data.models.WorkerModel
+import com.davisdabols.inventarizacijaspaligs.data.models.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import timber.log.Timber
@@ -90,6 +87,13 @@ class AppViewModel @Inject constructor(
     fun deleteItems() {
         launchIO {
             repository.deleteItems(selectedItem!!.ID)
+        }
+    }
+
+    fun updateItems(name: String, description: String) {
+        val item = ItemsPutModel(name, description)
+        launchIO {
+            repository.updateItems(selectedItem!!.ID, item)
         }
     }
 }

@@ -33,4 +33,9 @@
         android:name="com.davisdabols.inventarizacijaspaligs.ui.viewitem.ViewItemFragment"
     />
 
+    <fragment
+        android:id="@+id/navigation_edit_item"
+        android:name="com.davisdabols.inventarizacijaspaligs.ui.edititem.EditItemFragment"
+    />
+
 </navigation>

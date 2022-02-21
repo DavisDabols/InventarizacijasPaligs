@@ -1,10 +1,7 @@
 package com.davisdabols.inventarizacijaspaligs.data
 
 import com.davisdabols.inventarizacijaspaligs.data.cache.AppDatabase
-import com.davisdabols.inventarizacijaspaligs.data.models.ItemsModel
-import com.davisdabols.inventarizacijaspaligs.data.models.ItemsPostModel
-import com.davisdabols.inventarizacijaspaligs.data.models.WarehouseModel
-import com.davisdabols.inventarizacijaspaligs.data.models.WorkerModel
+import com.davisdabols.inventarizacijaspaligs.data.models.*
 import com.davisdabols.inventarizacijaspaligs.data.networking.WorkerApi
 import kotlinx.coroutines.flow.first
 import timber.log.Timber
@@ -54,5 +51,9 @@ class AppRepository @Inject constructor(
     suspend fun deleteItems(id: String) {
         api.deleteItems(id)
         db.itemsDao().deleteSpecificItem(id)
+    }
+
+    suspend fun updateItems(id: String, item: ItemsPutModel) {
+        api.putItems(id, item)
     }
 }

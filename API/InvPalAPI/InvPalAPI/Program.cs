@@ -65,6 +65,21 @@ app.MapDelete("/itemsitems/itemId/{Id}", async (Guid Id, ApplicationDbContext db
     return Results.NotFound();
 });
 
+//PUT items
+app.MapPut("/itemsitems/itemId/{Id}", async (Guid Id, Items inputItem, ApplicationDbContext db) =>
+{
+    var item = await db.Items.FindAsync(Id);
+
+    if (item is null) return Results.NotFound();
+
+    item.Name = inputItem.Name;
+    item.Description = inputItem.Description;
+
+    await db.SaveChangesAsync();
+
+    return Results.NoContent();
+});
+
 app.Run();
 
 class Warehouse

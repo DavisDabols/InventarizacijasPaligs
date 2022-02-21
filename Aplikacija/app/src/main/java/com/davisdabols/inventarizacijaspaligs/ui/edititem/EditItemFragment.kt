@@ -1,4 +1,4 @@
-package com.davisdabols.inventarizacijaspaligs.ui.viewitem
+package com.davisdabols.inventarizacijaspaligs.ui.edititem
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,32 +8,34 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.davisdabols.inventarizacijaspaligs.R
 import com.davisdabols.inventarizacijaspaligs.common.openFragment
-import com.davisdabols.inventarizacijaspaligs.databinding.FragmentViewItemBinding
+import com.davisdabols.inventarizacijaspaligs.databinding.FragmentEditItemBinding
 import com.davisdabols.inventarizacijaspaligs.ui.AppViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class ViewItemFragment : Fragment() {
-
-    private lateinit var binding: FragmentViewItemBinding
+@AndroidEntryPoint
+class EditItemFragment : Fragment() {
+    private lateinit var binding: FragmentEditItemBinding
 
     private val viewModel by activityViewModels<AppViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentViewItemBinding.inflate(inflater)
+        binding = FragmentEditItemBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.item = viewModel.selectedItem
-
-        binding.deleteItem.setOnClickListener {
-            viewModel.deleteItems()
-            openFragment(R.id.navigation_items_list)
+        binding.closeEditItems.setOnClickListener {
+            openFragment(R.id.navigation_view_item)
         }
 
         binding.editItem.setOnClickListener {
-            openFragment(R.id.navigation_edit_item)
+            viewModel.updateItems(
+                binding.itemTitleInput.text.toString(),
+                binding.itemDescriptionInput.text.toString()
+            )
+            openFragment(R.id.navigation_items_list)
         }
     }
 }

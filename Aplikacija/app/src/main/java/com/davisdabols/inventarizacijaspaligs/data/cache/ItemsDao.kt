@@ -1,9 +1,6 @@
 package com.davisdabols.inventarizacijaspaligs.data.cache
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.davisdabols.inventarizacijaspaligs.data.models.ItemsModel
 import kotlinx.coroutines.flow.Flow
 
@@ -20,4 +17,7 @@ interface ItemsDao {
 
     @Query("DELETE FROM ITEMS_TABLE WHERE ID = :id")
     suspend fun deleteSpecificItem(id: String)
+
+    @Update
+    fun updateItem(item: ItemsModel)
 }
