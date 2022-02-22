@@ -44,5 +44,65 @@ namespace InvPalMajaslapa.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction("Index", new { id = warehouseId });
         }
+
+        //GET
+        public IActionResult Edit(Guid? id, Guid? warehouseId)
+        {
+            ViewBag.WarehouseId = warehouseId;
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var itemFromDb = _db.Items.Find(id);
+            if (itemFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(itemFromDb);
+        }
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Items obj, Guid warehouseId)
+        {
+            var user = await userManager.GetUserAsync(User);
+            obj.UserId = user.Id;
+            obj.WarehouseId = warehouseId;
+            _db.Items.Update(obj);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index", new { id = warehouseId });
+        }
+
+        //GET
+        public IActionResult Delete(Guid? id, Guid? warehouseId)
+        {
+            ViewBag.WarehouseId = warehouseId;
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var itemFromDb = _db.Items.Find(id);
+            if (itemFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(itemFromDb);
+        }
+
+        //POST
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePOST(Guid? id, Guid warehouseId)
+        {
+            var obj = _db.Items.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.Items.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index", new { id = warehouseId });
+        }
     }
 }

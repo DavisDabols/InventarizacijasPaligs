@@ -66,7 +66,6 @@ namespace InvPalMajaslapa.Controllers
         {
             var user = await userManager.GetUserAsync(User);
             obj.UserId = user.Id;
-            obj.Id = Guid.NewGuid();
             obj.Password = BCrypt.Net.BCrypt.HashPassword(obj.Password);
             _db.Workers.Update(obj);
             await _db.SaveChangesAsync();

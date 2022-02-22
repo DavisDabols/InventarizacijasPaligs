@@ -65,7 +65,6 @@ namespace InvPalMajaslapa.Controllers
         {
             var user = await userManager.GetUserAsync(User);
             obj.UserId = user.Id;
-            obj.Id = Guid.NewGuid();
             _db.Warehouses.Update(obj);
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");

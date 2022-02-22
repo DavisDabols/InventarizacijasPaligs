@@ -1,0 +1,23 @@
+﻿@model Items
+@{
+    ViewData["Title"] = "Preces";
+}
+<form method="post">
+  <fieldset>
+@*      <div asp-validation-summary="All" class="text-danger"></div>*@
+    <input asp-for="Id" hidden />
+    <div class="form-group">
+      <label asp-for="Name" class="form-label mt-4">Nosaukums</label>
+      <input asp-for="Name" disabled  class="form-control">
+    </div>
+    <div class="form-group">
+      <label asp-for="Description" class="form-label mt-4">Apraksts</label>
+      <input asp-for="Description" disabled  class="form-control">
+    </div>
+    <div class="mt-4">
+        <input type="hidden" name="warehouseId" value=@ViewBag.WarehouseId />
+        <a asp-controller="Items" asp-action="Index" asp-route-id="@ViewBag.WarehouseId" class="btn btn-primary">Atpakaļ uz sarakstu</a>
+        <button type="submit" class="btn btn-danger">Izdzēst</button>
+    </div>
+  </fieldset>
+</form>
