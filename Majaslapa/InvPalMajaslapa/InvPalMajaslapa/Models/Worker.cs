@@ -6,11 +6,11 @@ namespace InvPalMajaslapa.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        [Required]
+        public string? Name { get; set; }
+        public string? Surname { get; set; }
+        [Required(ErrorMessage = "Epasta adrese lauks ir obligāts")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Parole lauks ir obligāts")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string UserId { get; set; }

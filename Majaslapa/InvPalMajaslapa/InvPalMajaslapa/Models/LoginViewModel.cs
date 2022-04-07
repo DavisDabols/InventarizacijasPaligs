@@ -4,11 +4,11 @@ namespace InvPalMajaslapa.Models
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Epasta adrese lauks ir obligāts")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Parole lauks ir obligāts")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

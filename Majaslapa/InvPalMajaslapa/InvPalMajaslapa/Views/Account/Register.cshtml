@@ -8,7 +8,6 @@
 
 <form method="post">
   <fieldset>
-@*      <div asp-validation-summary="All" class="text-danger"></div>*@
     <div class="form-group">
       <label asp-for="Name" class="form-label mt-4">Vārds</label>
       <input asp-for="Name"  class="form-control" placeholder="Jānis">
@@ -23,7 +22,7 @@
     </div>
     <div class="form-group">
       <label asp-for="Email" class="form-label mt-4">Epasta adrese</label>
-      <input asp-for="Email"  class="form-control" aria-describedby="emailHelp" placeholder="Ievadiet epasta adresi">
+      <input asp-for="Email"  class="form-control" placeholder="Ievadiet epasta adresi">
       <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="form-group">
