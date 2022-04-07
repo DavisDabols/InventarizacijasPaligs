@@ -41,6 +41,9 @@ namespace InvPalMajaslapa.Controllers
             obj.Id = Guid.NewGuid();
             obj.WarehouseId = warehouseId;
             _db.Items.Add(obj);
+            var warehouse = _db.Warehouses.Find(warehouseId);
+            warehouse.Capacity++;
+            _db.Warehouses.Update(warehouse);
             await _db.SaveChangesAsync();
             return RedirectToAction("Index", new { id = warehouseId });
         }
@@ -96,11 +99,14 @@ namespace InvPalMajaslapa.Controllers
         public IActionResult DeletePOST(Guid? id, Guid warehouseId)
         {
             var obj = _db.Items.Find(id);
+            var warehouse = _db.Warehouses.Find(warehouseId);
             if (obj == null)
             {
                 return NotFound();
             }
             _db.Items.Remove(obj);
+            warehouse.Capacity--;
+            _db.Warehouses.Update(warehouse);
             _db.SaveChanges();
             return RedirectToAction("Index", new { id = warehouseId });
         }
