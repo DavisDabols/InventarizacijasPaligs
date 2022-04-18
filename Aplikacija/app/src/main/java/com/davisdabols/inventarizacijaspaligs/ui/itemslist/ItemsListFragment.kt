@@ -11,8 +11,9 @@ import com.davisdabols.inventarizacijaspaligs.R
 import com.davisdabols.inventarizacijaspaligs.common.openFragment
 import com.davisdabols.inventarizacijaspaligs.databinding.FragmentItemsBinding
 import com.davisdabols.inventarizacijaspaligs.ui.AppViewModel
+import com.davisdabols.inventarizacijaspaligs.ui.ItemsState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -41,6 +42,8 @@ class ItemsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.loading.visibility = View.VISIBLE
+
         viewModel.selectedItem = null;
 
         viewModel.getItems()
@@ -57,13 +60,22 @@ class ItemsListFragment : Fragment() {
         }
 
         lifecycleScope.launchWhenCreated {
-            viewModel.items.collect() { items ->
-                binding.emptyItems.visibility = if (items.isEmpty()) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
+            viewModel.itemsState.collectLatest { state ->
+                when(state) {
+                    ItemsState.IsEmpty -> {
+                        adapter.itemsList = emptyList()
+                        binding.emptyItems.visibility = View.VISIBLE
+                        binding.loading.visibility = View.GONE
+                    }
+                    ItemsState.Loading -> {
+                        binding.loading.visibility = View.VISIBLE
+                        binding.emptyItems.visibility = View.GONE
+                    }
+                    is ItemsState.Items -> {
+                        adapter.itemsList = state.items
+                        binding.loading.visibility = View.GONE
+                    }
                 }
-                adapter.itemsList = items
             }
         }
     }

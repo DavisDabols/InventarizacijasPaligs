@@ -57,6 +57,8 @@ app.MapDelete("/itemsitems/itemId/{Id}", async (Guid Id, ApplicationDbContext db
 {
     if (await db.Items.FindAsync(Id) is Items item)
     {
+        var warehouse = await db.Warehouses.FindAsync(item.WarehouseId);
+        warehouse.Capacity--;
         db.Items.Remove(item);
         await db.SaveChangesAsync();
         return Results.Ok(item);
@@ -88,8 +90,8 @@ class Warehouse
     public Guid Id { get; set; }
     [Required]
     public string Name { get; set; }
-    public string Address { get; set; }
-    public int MaxCapacity { get; set; }
+    public string? Address { get; set; }
+    public int Capacity { get; set; }
     public DateTime CreatedDateTime { get; set; } = DateTime.Now;
     public string UserId { get; set; }
 }
@@ -98,8 +100,8 @@ class Worker
 {
     [Key]
     public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string Surname { get; set; }
+    public string? Name { get; set; }
+    public string? Surname { get; set; }
     [Required]
     public string Email { get; set; }
     [Required]
@@ -114,7 +116,7 @@ public class Items
     public Guid Id { get; set; }
     [Required]
     public string Name { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public DateTime CreatedDateTime { get; set; } = DateTime.Now;
     public Guid WarehouseId { get; set; }
     public string UserId { get; set; }

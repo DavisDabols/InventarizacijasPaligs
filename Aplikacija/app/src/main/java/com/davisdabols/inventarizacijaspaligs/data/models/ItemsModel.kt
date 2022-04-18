@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 data class ItemsModel (
     @SerializedName("id") @PrimaryKey val ID : String,
     @SerializedName("name") val Name : String,
-    @SerializedName("description") val Description : String,
+    @SerializedName("description") val Description : String?,
     @SerializedName("warehouseId") val WarehouseID : String,
     @SerializedName("userId") val AdminId : String,
 )

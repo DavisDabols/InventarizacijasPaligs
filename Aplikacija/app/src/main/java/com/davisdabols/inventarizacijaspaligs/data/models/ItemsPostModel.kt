@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ItemsPostModel(
     @SerializedName("name") val Name : String,
-    @SerializedName("description") val Description : String,
+    @SerializedName("description") val Description : String?,
     @SerializedName("warehouseId") val WarehouseID : String,
     @SerializedName("userId") val AdminId : String,
 )

@@ -8,8 +8,8 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = WORKER_TABLE)
 data class WorkerModel (
     @SerializedName("id") @PrimaryKey val ID : String,
-    @SerializedName("name") val Name : String,
-    @SerializedName("surname") val Surname : String,
+    @SerializedName("name") val Name : String?,
+    @SerializedName("surname") val Surname : String?,
     @SerializedName("email") val Email : String,
     @SerializedName("password") val Password : String,
     @SerializedName("userId") val AdminID : String,
