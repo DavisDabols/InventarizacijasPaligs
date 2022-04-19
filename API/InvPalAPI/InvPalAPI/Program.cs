@@ -45,6 +45,8 @@ app.MapGet("/itemsitems/warehouseId/{warehouseId}", async (Guid warehouseId, App
 //POST items
 app.MapPost("/itemsitems", async (Items item, ApplicationDbContext db) =>
 {
+    var warehouse = await db.Warehouses.FindAsync(item.WarehouseId);
+    warehouse.Capacity++;
     item.Id = Guid.NewGuid();
     db.Items.Add(item);
     await db.SaveChangesAsync();
