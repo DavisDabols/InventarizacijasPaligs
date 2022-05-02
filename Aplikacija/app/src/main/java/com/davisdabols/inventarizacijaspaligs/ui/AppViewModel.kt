@@ -117,8 +117,8 @@ class AppViewModel @Inject constructor(
         }
     }
 
-    fun updateItems(name: String, description: String) {
-        val item = ItemsPutModel(name, description)
+    fun updateItems(name: String, description: String?, warehouseId : String) {
+        val item = ItemsPutModel(name, description, warehouseId)
         launchIO {
             repository.updateItems(selectedItem!!.ID, item)
         }

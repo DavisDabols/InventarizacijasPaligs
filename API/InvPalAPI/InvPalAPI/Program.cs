@@ -78,6 +78,14 @@ app.MapPut("/itemsitems/itemId/{Id}", async (Guid Id, Items inputItem, Applicati
 
     item.Name = inputItem.Name;
     item.Description = inputItem.Description;
+    if (item.WarehouseId != inputItem.WarehouseId)
+    {
+        var warehouseoutput = await db.Warehouses.FindAsync(item.WarehouseId);
+        var warehouseinput = await db.Warehouses.FindAsync(inputItem.WarehouseId);
+        warehouseinput.Capacity++;
+        warehouseoutput.Capacity--;
+        item.WarehouseId = inputItem.WarehouseId;
+    }
 
     await db.SaveChangesAsync();
 

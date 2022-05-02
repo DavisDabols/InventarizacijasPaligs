@@ -35,5 +35,9 @@ class ViewItemFragment : Fragment() {
         binding.editItem.setOnClickListener {
             openFragment(R.id.navigation_edit_item)
         }
+
+        binding.moveItem.setOnClickListener {
+            openFragment(R.id.navigation_move_item)
+        }
     }
 }

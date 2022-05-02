@@ -40,6 +40,16 @@
         />
 
         <Button
+            android:id="@+id/move_item"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:text="@string/p_rvietot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/edit_item"
+            />
+
+        <Button
             android:id="@+id/edit_item"
             android:layout_width="300dp"
             android:layout_height="48dp"

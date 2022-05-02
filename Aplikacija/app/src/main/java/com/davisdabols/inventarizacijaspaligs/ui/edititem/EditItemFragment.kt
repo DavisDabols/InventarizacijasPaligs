@@ -33,7 +33,8 @@ class EditItemFragment : Fragment() {
         binding.editItem.setOnClickListener {
             viewModel.updateItems(
                 binding.itemTitleInput.text.toString(),
-                binding.itemDescriptionInput.text.toString()
+                binding.itemDescriptionInput.text.toString(),
+                viewModel.selectedItem!!.WarehouseID
             )
             openFragment(R.id.navigation_items_list)
         }

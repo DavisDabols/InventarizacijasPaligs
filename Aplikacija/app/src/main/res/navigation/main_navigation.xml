@@ -38,4 +38,9 @@
         android:name="com.davisdabols.inventarizacijaspaligs.ui.edititem.EditItemFragment"
     />
 
+    <fragment
+        android:id="@+id/navigation_move_item"
+        android:name="com.davisdabols.inventarizacijaspaligs.ui.moveitem.MoveItemFragment"
+    />
+
 </navigation>
