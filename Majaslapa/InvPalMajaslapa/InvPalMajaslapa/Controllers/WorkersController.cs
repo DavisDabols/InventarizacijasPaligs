@@ -35,13 +35,18 @@ namespace InvPalMajaslapa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Worker obj)
         {
-            var user = await userManager.GetUserAsync(User);
-            obj.UserId = user.Id;
-            obj.Id = Guid.NewGuid();
-            obj.Password = BCrypt.Net.BCrypt.HashPassword(obj.Password);
-            _db.Workers.Add(obj);
-            await _db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.GetUserAsync(User);
+                obj.UserId = user.Id;
+                obj.Id = Guid.NewGuid();
+                obj.Password = BCrypt.Net.BCrypt.HashPassword(obj.Password);
+                _db.Workers.Add(obj);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
         }
 
         // GET
@@ -64,12 +69,17 @@ namespace InvPalMajaslapa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Worker obj)
         {
-            var user = await userManager.GetUserAsync(User);
-            obj.UserId = user.Id;
-            obj.Password = BCrypt.Net.BCrypt.HashPassword(obj.Password);
-            _db.Workers.Update(obj);
-            await _db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.GetUserAsync(User);
+                obj.UserId = user.Id;
+                obj.Password = BCrypt.Net.BCrypt.HashPassword(obj.Password);
+                _db.Workers.Update(obj);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
         }
 
         // GET

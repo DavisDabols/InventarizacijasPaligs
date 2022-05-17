@@ -11,6 +11,6 @@ namespace InvPalMajaslapa.Models
         public string? Description { get; set; }
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
         public Guid WarehouseId { get; set; }
-        public string UserId { get; set; }
+        public string UserId { get; set; } = "";
     }
 }

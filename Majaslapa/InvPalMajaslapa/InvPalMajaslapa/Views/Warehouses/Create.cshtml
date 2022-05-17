@@ -8,10 +8,12 @@
     <div class="form-group">
       <label asp-for="Name" class="form-label mt-4">Nosaukums</label>
       <input asp-for="Name"  class="form-control" placeholder="Mana Noliktava">
+      <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="form-group">
       <label asp-for="Address" class="form-label mt-4">Adrese</label>
       <input asp-for="Address"  class="form-control" placeholder="Rīgas iela 1">
+      <span asp-validation-for="Address" class="text-danger"></span>
     </div>
     <div class="mt-4">
         <button type="submit" class="btn btn-primary">Submit</button>

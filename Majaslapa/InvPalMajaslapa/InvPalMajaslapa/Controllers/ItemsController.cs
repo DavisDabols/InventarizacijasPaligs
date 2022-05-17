@@ -21,31 +21,38 @@ namespace InvPalMajaslapa.Controllers
         {
             IQueryable<Items> objItemList = _db.Items.Where(w => w.WarehouseId == id);
             ViewBag.WarehouseId = id;
+            TempData["WarehouseId"] = id;
             return View(objItemList);
         }
 
         //GET
-        public IActionResult Create(Guid? id)
+        public IActionResult Create()
         {
-            ViewBag.WarehouseId = id;
+            ViewBag.WarehouseId = (Guid)TempData["WarehouseId"];
             return View();
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Items obj, Guid warehouseId)
+        public async Task<IActionResult> Create(Items obj)
         {
-            var user = await userManager.GetUserAsync(User);
-            obj.UserId = user.Id;
-            obj.Id = Guid.NewGuid();
-            obj.WarehouseId = warehouseId;
-            _db.Items.Add(obj);
-            var warehouse = _db.Warehouses.Find(warehouseId);
-            warehouse.Capacity++;
-            _db.Warehouses.Update(warehouse);
-            await _db.SaveChangesAsync();
-            return RedirectToAction("Index", new { id = warehouseId });
+            if (ModelState.IsValid)
+            {
+                var warehouseId = ViewBag.WarehouseId;
+                var user = await userManager.GetUserAsync(User);
+                obj.UserId = user.Id;
+                obj.Id = Guid.NewGuid();
+                obj.WarehouseId = warehouseId;
+                _db.Items.Add(obj);
+                var warehouse = _db.Warehouses.Find(warehouseId);
+                warehouse.Capacity++;
+                _db.Warehouses.Update(warehouse);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index", new { id = warehouseId });
+            }
+
+            return View(obj);
         }
 
         //GET
@@ -69,12 +76,17 @@ namespace InvPalMajaslapa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Items obj, Guid warehouseId)
         {
-            var user = await userManager.GetUserAsync(User);
-            obj.UserId = user.Id;
-            obj.WarehouseId = warehouseId;
-            _db.Items.Update(obj);
-            await _db.SaveChangesAsync();
-            return RedirectToAction("Index", new { id = warehouseId });
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.GetUserAsync(User);
+                obj.UserId = user.Id;
+                obj.WarehouseId = warehouseId;
+                _db.Items.Update(obj);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index", new { id = warehouseId });
+            }
+
+            return View(new ItemViewModel(obj, warehouseId));
         }
 
         //GET

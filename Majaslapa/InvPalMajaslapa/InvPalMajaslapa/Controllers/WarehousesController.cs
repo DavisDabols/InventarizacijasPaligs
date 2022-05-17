@@ -35,12 +35,17 @@ namespace InvPalMajaslapa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Warehouse obj)
         {
-            var user = await userManager.GetUserAsync(User);
-            obj.UserId = user.Id;
-            obj.Id = Guid.NewGuid();
-            _db.Warehouses.Add(obj);
-            await _db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.GetUserAsync(User);
+                obj.UserId = user.Id;
+                obj.Id = Guid.NewGuid();
+                _db.Warehouses.Add(obj);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            
+            return View(obj);
         }
 
         // GET
@@ -63,11 +68,16 @@ namespace InvPalMajaslapa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Warehouse obj)
         {
-            var user = await userManager.GetUserAsync(User);
-            obj.UserId = user.Id;
-            _db.Warehouses.Update(obj);
-            await _db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.GetUserAsync(User);
+                obj.UserId = user.Id;
+                _db.Warehouses.Update(obj);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
         }
 
         // GET
