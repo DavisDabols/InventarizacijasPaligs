@@ -2,6 +2,7 @@
 using InvPalMajaslapa.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace InvPalMajaslapa.Controllers
 {
@@ -16,12 +17,45 @@ namespace InvPalMajaslapa.Controllers
             _db = db;
             this.userManager = userManager;
         }
-
+        //warehouselist
+        //item list
+        //dabū no item list cenu katram ware
+        //join/viewmodel
         public async Task<IActionResult> Index()
         {
             var user = await userManager.GetUserAsync(User);
             IQueryable<Warehouse> objWarehouseList = _db.Warehouses.Where(w => w.UserId == user.Id);
-            return View(objWarehouseList);
+            var warehouse = _db.Warehouses.Include(w => w.Items).Where(w => w.UserId == user.Id).ToList();
+            var viewmodel = warehouse.Select(w =>
+            {
+                var totalPrice = w.Items.Aggregate(0m, (current, item) => current + item.Price * item.Count);
+                return new WarehousesViewModel()
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    Address = w.Address,
+                    Capacity = w.Capacity,
+                    TotalPrice = totalPrice
+                };
+            });
+            //IQueryable<Items> objItemList = _db.Items.Where(w => w.UserId == user.Id);
+            //var objWarehousePrice = from i in objItemList
+            //                        group i by i.WarehouseId into items
+            //                        select new {
+            //                            WarehouseId = items.WarehouseId,
+            //                            Price = items.Sum(w => w.Price * w.Count)};
+            //IQueryable<WarehousesViewModel> objWarehouse =
+            //    from w in objWarehouseList
+            //    join i in objWarehousePrice on w.Id equals i.WarehouseId
+            //    select new WarehousesViewModel
+            //    {
+            //        Id = w.Id,
+            //        Name = w.Name,
+            //        Address = w.Address,
+            //        Capacity = w.Capacity,
+            //        TotalPrice = i.Price
+            //    };
+            return View(viewmodel);
         }
 
         // GET

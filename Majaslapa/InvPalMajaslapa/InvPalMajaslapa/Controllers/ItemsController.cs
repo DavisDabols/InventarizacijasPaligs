@@ -2,6 +2,7 @@
 using InvPalMajaslapa.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InvPalMajaslapa.Controllers
 {
@@ -26,9 +27,12 @@ namespace InvPalMajaslapa.Controllers
         }
 
         //GET
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.WarehouseId = (Guid)TempData["WarehouseId"];
+            var user = await userManager.GetUserAsync(User);
+            var warehouses = _db.Warehouses.Where(w => w.UserId == user.Id).ToList();
+            var selectListItems = warehouses.Select(obj => new SelectListItem { Text = obj.Name, Value = obj.Id.ToString() });
+            ViewBag.Warehouses = new SelectList(selectListItems, "Value", "Text");
             return View();
         }
 
@@ -39,26 +43,24 @@ namespace InvPalMajaslapa.Controllers
         {
             if (ModelState.IsValid)
             {
-                var warehouseId = ViewBag.WarehouseId;
                 var user = await userManager.GetUserAsync(User);
                 obj.UserId = user.Id;
                 obj.Id = Guid.NewGuid();
-                obj.WarehouseId = warehouseId;
+                obj.WarehouseId = (Guid)obj.WarehouseId;
                 _db.Items.Add(obj);
-                var warehouse = _db.Warehouses.Find(warehouseId);
+                var warehouse = _db.Warehouses.Find(obj.WarehouseId);
                 warehouse.Capacity++;
                 _db.Warehouses.Update(warehouse);
                 await _db.SaveChangesAsync();
-                return RedirectToAction("Index", new { id = warehouseId });
+                return RedirectToAction("Index", new { id = obj.WarehouseId });
             }
 
             return View(obj);
         }
 
         //GET
-        public IActionResult Edit(Guid? id, Guid? warehouseId)
+        public async Task<IActionResult> Edit(Guid? id)
         {
-            ViewBag.WarehouseId = warehouseId;
             if (id == null)
             {
                 return NotFound();
@@ -68,25 +70,28 @@ namespace InvPalMajaslapa.Controllers
             {
                 return NotFound();
             }
+            var user = await userManager.GetUserAsync(User);
+            var warehouses = _db.Warehouses.Where(w => w.UserId == user.Id).ToList();
+            var selectListItems = warehouses.Select(obj => new SelectListItem { Text = obj.Name, Value = obj.Id.ToString() });
+            ViewBag.Warehouses = new SelectList(selectListItems, "Value", "Text", itemFromDb.WarehouseId);
             return View(itemFromDb);
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Items obj, Guid warehouseId)
+        public async Task<IActionResult> Edit(Items obj)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = await userManager.GetUserAsync(User);
-                obj.UserId = user.Id;
-                obj.WarehouseId = warehouseId;
-                _db.Items.Update(obj);
-                await _db.SaveChangesAsync();
-                return RedirectToAction("Index", new { id = warehouseId });
+                return View(obj);
             }
-
-            return View(new ItemViewModel(obj, warehouseId));
+            var user = await userManager.GetUserAsync(User);
+            obj.UserId = user.Id;
+            obj.WarehouseId = (Guid)obj.WarehouseId;
+            _db.Items.Update(obj);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index", new { id = obj.WarehouseId });
         }
 
         //GET

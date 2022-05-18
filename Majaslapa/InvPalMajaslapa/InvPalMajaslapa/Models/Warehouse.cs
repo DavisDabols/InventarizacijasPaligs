@@ -12,5 +12,6 @@ namespace InvPalMajaslapa.Models
         public int Capacity { get; set; } = 0;
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
         public string UserId { get; set; } = "";
+        public List<Items> Items { get; set; }
     }
 }

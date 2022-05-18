@@ -8,18 +8,22 @@
     <div class="form-group">
       <label asp-for="Name" class="form-label mt-4">Vārds</label>
       <input asp-for="Name"  class="form-control" placeholder="Jānis">
+      <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="form-group">
       <label asp-for="Surname" class="form-label mt-4">Uzvārds</label>
       <input asp-for="Surname"  class="form-control" placeholder="Bērziņš">
+      <span asp-validation-for="Surname" class="text-danger"></span>
     </div>
     <div class="form-group">
       <label asp-for="Email" class="form-label mt-4">E-Pasts</label>
       <input asp-for="Email" class="form-control">
+      <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="form-group">
       <label asp-for="Password" class="form-label mt-4">Parole</label>
       <input asp-for="Password" class="form-control">
+      <span asp-validation-for="Password" class="text-danger"></span>
     </div>
     <div class="mt-4">
         <button type="submit" class="btn btn-primary">Submit</button>
