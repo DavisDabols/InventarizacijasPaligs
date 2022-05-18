@@ -17,10 +17,7 @@ namespace InvPalMajaslapa.Controllers
             _db = db;
             this.userManager = userManager;
         }
-        //warehouselist
-        //item list
-        //dabū no item list cenu katram ware
-        //join/viewmodel
+
         public async Task<IActionResult> Index()
         {
             var user = await userManager.GetUserAsync(User);
@@ -29,32 +26,16 @@ namespace InvPalMajaslapa.Controllers
             var viewmodel = warehouse.Select(w =>
             {
                 var totalPrice = w.Items.Aggregate(0m, (current, item) => current + item.Price * item.Count);
+                var capacity = w.Items.Count;
                 return new WarehousesViewModel()
                 {
                     Id = w.Id,
                     Name = w.Name,
                     Address = w.Address,
-                    Capacity = w.Capacity,
+                    Capacity = capacity,
                     TotalPrice = totalPrice
                 };
             });
-            //IQueryable<Items> objItemList = _db.Items.Where(w => w.UserId == user.Id);
-            //var objWarehousePrice = from i in objItemList
-            //                        group i by i.WarehouseId into items
-            //                        select new {
-            //                            WarehouseId = items.WarehouseId,
-            //                            Price = items.Sum(w => w.Price * w.Count)};
-            //IQueryable<WarehousesViewModel> objWarehouse =
-            //    from w in objWarehouseList
-            //    join i in objWarehousePrice on w.Id equals i.WarehouseId
-            //    select new WarehousesViewModel
-            //    {
-            //        Id = w.Id,
-            //        Name = w.Name,
-            //        Address = w.Address,
-            //        Capacity = w.Capacity,
-            //        TotalPrice = i.Price
-            //    };
             return View(viewmodel);
         }
 

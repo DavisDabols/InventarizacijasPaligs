@@ -30,6 +30,8 @@ class MoveItemFragment: Fragment() {
             viewModel.updateItems(
                 viewModel.selectedItem!!.Name,
                 viewModel.selectedItem!!.Description,
+                viewModel.selectedItem!!.Count,
+                viewModel.selectedItem!!.Price,
                 warehouse.ID
             )
             openFragment(R.id.navigation_items_list)

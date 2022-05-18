@@ -14,4 +14,6 @@
     <string name="dz_st">Dzēst</string>
     <string name="redi_t">Rediģēt</string>
     <string name="p_rvietot">Pārvietot</string>
+    <string name="ievadiet_skaitu">ievadiet skaitu</string>
+    <string name="ievadiet_cenu">Ievadiet cenu</string>
 </resources>

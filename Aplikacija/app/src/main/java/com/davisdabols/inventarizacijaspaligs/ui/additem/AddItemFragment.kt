@@ -1,5 +1,6 @@
 package com.davisdabols.inventarizacijaspaligs.ui.additem
 
+import DecimalDigitsInputFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,10 +32,14 @@ class AddItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.itemPriceInput.filters = arrayOf(DecimalDigitsInputFilter(10, 2))
+
         binding.addNewItem.setOnClickListener {
             viewModel.postItems(
                 binding.itemTitleInput.text.toString(),
-                binding.itemDescriptionInput.text.toString()
+                binding.itemDescriptionInput.text.toString(),
+                binding.itemCountInput.text.toString().toInt(),
+                binding.itemPriceInput.text.toString().toFloat()
             )
             openFragment(R.id.navigation_items_list)
         }

@@ -39,6 +39,30 @@
             app:layout_constraintEnd_toEndOf="parent"
         />
 
+        <TextView
+            android:id="@+id/item_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{item.itemCount}"
+            android:layout_marginTop="8dp"
+            tools:text="12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/item_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{item.itemPrice}"
+            android:layout_marginTop="8dp"
+            tools:text="12.34"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_count"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
         <Button
             android:id="@+id/move_item"
             android:layout_width="300dp"

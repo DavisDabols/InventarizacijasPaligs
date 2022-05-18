@@ -11,10 +11,15 @@ data class ItemsModel (
     @SerializedName("id") @PrimaryKey val ID : String,
     @SerializedName("name") val Name : String,
     @SerializedName("description") val Description : String?,
+    @SerializedName("count") val Count : Int,
+    @SerializedName("price") val Price : Float,
     @SerializedName("warehouseId") val WarehouseID : String,
     @SerializedName("userId") val AdminId : String,
 )
-
+{
+    val itemPrice get() = Price.toString()
+    val itemCount get() = Count.toString()
+}
 /*
 {
         "id": "8c948b3f-6a8a-4c1c-a1d3-cbd56afb4898",

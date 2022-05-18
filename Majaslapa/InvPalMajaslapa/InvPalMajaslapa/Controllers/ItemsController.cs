@@ -49,7 +49,6 @@ namespace InvPalMajaslapa.Controllers
                 obj.WarehouseId = (Guid)obj.WarehouseId;
                 _db.Items.Add(obj);
                 var warehouse = _db.Warehouses.Find(obj.WarehouseId);
-                warehouse.Capacity++;
                 _db.Warehouses.Update(warehouse);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index", new { id = obj.WarehouseId });
@@ -122,7 +121,6 @@ namespace InvPalMajaslapa.Controllers
                 return NotFound();
             }
             _db.Items.Remove(obj);
-            warehouse.Capacity--;
             _db.Warehouses.Update(warehouse);
             _db.SaveChanges();
             return RedirectToAction("Index", new { id = warehouseId });

@@ -45,8 +45,6 @@ app.MapGet("/itemsitems/warehouseId/{warehouseId}", async (Guid warehouseId, App
 //POST items
 app.MapPost("/itemsitems", async (Items item, ApplicationDbContext db) =>
 {
-    var warehouse = await db.Warehouses.FindAsync(item.WarehouseId);
-    warehouse.Capacity++;
     item.Id = Guid.NewGuid();
     db.Items.Add(item);
     await db.SaveChangesAsync();
@@ -59,8 +57,6 @@ app.MapDelete("/itemsitems/itemId/{Id}", async (Guid Id, ApplicationDbContext db
 {
     if (await db.Items.FindAsync(Id) is Items item)
     {
-        var warehouse = await db.Warehouses.FindAsync(item.WarehouseId);
-        warehouse.Capacity--;
         db.Items.Remove(item);
         await db.SaveChangesAsync();
         return Results.Ok(item);
@@ -82,8 +78,6 @@ app.MapPut("/itemsitems/itemId/{Id}", async (Guid Id, Items inputItem, Applicati
     {
         var warehouseoutput = await db.Warehouses.FindAsync(item.WarehouseId);
         var warehouseinput = await db.Warehouses.FindAsync(inputItem.WarehouseId);
-        warehouseinput.Capacity++;
-        warehouseoutput.Capacity--;
         item.WarehouseId = inputItem.WarehouseId;
     }
 
@@ -127,6 +121,8 @@ public class Items
     [Required]
     public string Name { get; set; }
     public string? Description { get; set; }
+    public int Count { get; set; }
+    public decimal Price { get; set; }
     public DateTime CreatedDateTime { get; set; } = DateTime.Now;
     public Guid WarehouseId { get; set; }
     public string UserId { get; set; }
