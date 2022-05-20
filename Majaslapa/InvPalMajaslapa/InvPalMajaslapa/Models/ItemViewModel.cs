@@ -1,14 +1,11 @@
-﻿namespace InvPalMajaslapa.Models
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace InvPalMajaslapa.Models
 {
     public class ItemViewModel
     {
-        public Items Item { get; set; }
+        public Items? Item { get; set; }
         public Guid? WarehouseId { get; set; }
-
-        public ItemViewModel(Items Item, Guid WarehouseId)
-        {
-            Item = Item;
-            WarehouseId = WarehouseId;
-        }
+        public SelectList? selectList { get; set; }
     }
 }

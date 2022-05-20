@@ -32,27 +32,31 @@ namespace InvPalMajaslapa.Controllers
             var user = await userManager.GetUserAsync(User);
             var warehouses = _db.Warehouses.Where(w => w.UserId == user.Id).ToList();
             var selectListItems = warehouses.Select(obj => new SelectListItem { Text = obj.Name, Value = obj.Id.ToString() });
-            ViewBag.Warehouses = new SelectList(selectListItems, "Value", "Text");
-            return View();
+            var warehouseId = (Guid)TempData["WarehouseId"];
+            var viewModel = new ItemViewModel { 
+                WarehouseId = warehouseId, 
+                selectList = new SelectList(selectListItems, "Value", "Text", warehouseId) };
+            return View(viewModel);
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Items obj)
+        public async Task<IActionResult> Create(ItemViewModel obj)
         {
+            var user = await userManager.GetUserAsync(User);
             if (ModelState.IsValid)
             {
-                var user = await userManager.GetUserAsync(User);
-                obj.UserId = user.Id;
-                obj.Id = Guid.NewGuid();
-                obj.WarehouseId = (Guid)obj.WarehouseId;
-                _db.Items.Add(obj);
-                var warehouse = _db.Warehouses.Find(obj.WarehouseId);
-                _db.Warehouses.Update(warehouse);
+                obj.Item.UserId = user.Id;
+                obj.Item.Id = Guid.NewGuid();
+                obj.Item.WarehouseId = (Guid)obj.Item.WarehouseId;
+                _db.Items.Add(obj.Item);
                 await _db.SaveChangesAsync();
-                return RedirectToAction("Index", new { id = obj.WarehouseId });
+                return RedirectToAction("Index", new { id = obj.Item.WarehouseId });
             }
+            var warehouses = _db.Warehouses.Where(w => w.UserId == user.Id).ToList();
+            var selectListItems = warehouses.Select(obj => new SelectListItem { Text = obj.Name, Value = obj.Id.ToString() });
+            obj.selectList = new SelectList(selectListItems, "Value", "Text", obj.Item.WarehouseId);
 
             return View(obj);
         }
@@ -72,25 +76,34 @@ namespace InvPalMajaslapa.Controllers
             var user = await userManager.GetUserAsync(User);
             var warehouses = _db.Warehouses.Where(w => w.UserId == user.Id).ToList();
             var selectListItems = warehouses.Select(obj => new SelectListItem { Text = obj.Name, Value = obj.Id.ToString() });
-            ViewBag.Warehouses = new SelectList(selectListItems, "Value", "Text", itemFromDb.WarehouseId);
-            return View(itemFromDb);
+            var warehouseId = itemFromDb.WarehouseId;
+            var viewModel = new ItemViewModel
+            {
+                Item = itemFromDb,
+                WarehouseId = warehouseId,
+                selectList = new SelectList(selectListItems, "Value", "Text", warehouseId)
+            };
+            return View(viewModel);
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Items obj)
+        public async Task<IActionResult> Edit(ItemViewModel obj)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(obj);
-            }
             var user = await userManager.GetUserAsync(User);
-            obj.UserId = user.Id;
-            obj.WarehouseId = (Guid)obj.WarehouseId;
-            _db.Items.Update(obj);
-            await _db.SaveChangesAsync();
-            return RedirectToAction("Index", new { id = obj.WarehouseId });
+            if (ModelState.IsValid)
+            {
+                obj.Item.UserId = user.Id;
+                _db.Items.Update(obj.Item);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index", new { id = obj.Item.WarehouseId });
+            }
+            var warehouses = _db.Warehouses.Where(w => w.UserId == user.Id).ToList();
+            var selectListItems = warehouses.Select(obj => new SelectListItem { Text = obj.Name, Value = obj.Id.ToString() });
+            obj.selectList = new SelectList(selectListItems, "Value", "Text", obj.Item.WarehouseId);
+
+            return View(obj);
         }
 
         //GET

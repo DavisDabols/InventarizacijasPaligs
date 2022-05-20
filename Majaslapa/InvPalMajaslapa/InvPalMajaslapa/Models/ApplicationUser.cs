@@ -9,5 +9,6 @@ namespace InvPalMajaslapa.Models
         public string? CompanyName { get; set; }
         public List<Warehouse> Warehouses { get; set; } = new();
         public List<Worker> Workers { get; set; } = new();
+        public List<Items> Items { get; set; } = new();
     }
 }
