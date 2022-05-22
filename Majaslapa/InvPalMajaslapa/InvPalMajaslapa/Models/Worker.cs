@@ -14,5 +14,6 @@ namespace InvPalMajaslapa.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string UserId { get; set; }
+        public List<Logs> Logs { get; set; } = new();
     }
 }

@@ -10,5 +10,6 @@ namespace InvPalMajaslapa.Models
         public List<Warehouse> Warehouses { get; set; } = new();
         public List<Worker> Workers { get; set; } = new();
         public List<Items> Items { get; set; } = new();
+        public List<Logs> Logs { get; set; } = new();
     }
 }
