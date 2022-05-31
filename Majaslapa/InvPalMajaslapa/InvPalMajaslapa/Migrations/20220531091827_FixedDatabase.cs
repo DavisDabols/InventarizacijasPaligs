@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InvPalMajaslapa.Migrations
 {
-    public partial class AddedIdentityAndOtherTables : Migration
+    public partial class FixedDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,9 +28,9 @@ namespace InvPalMajaslapa.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -163,8 +163,7 @@ namespace InvPalMajaslapa.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaxCapacity = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
@@ -184,8 +183,8 @@ namespace InvPalMajaslapa.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -198,6 +197,69 @@ namespace InvPalMajaslapa.Migrations
                         name: "FK_Workers_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Items",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    WarehouseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Items", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Items_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Items_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Logs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WorkerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Action = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ItemsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Logs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Logs_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Logs_Items_ItemsId",
+                        column: x => x.ItemsId,
+                        principalTable: "Items",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Logs_Workers_WorkerId",
+                        column: x => x.WorkerId,
+                        principalTable: "Workers",
                         principalColumn: "Id");
                 });
 
@@ -241,6 +303,31 @@ namespace InvPalMajaslapa.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Items_ApplicationUserId",
+                table: "Items",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_WarehouseId",
+                table: "Items",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Logs_ApplicationUserId",
+                table: "Logs",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Logs_ItemsId",
+                table: "Logs",
+                column: "ItemsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Logs_WorkerId",
+                table: "Logs",
+                column: "WorkerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Warehouses_ApplicationUserId",
                 table: "Warehouses",
                 column: "ApplicationUserId");
@@ -269,13 +356,19 @@ namespace InvPalMajaslapa.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Warehouses");
+                name: "Logs");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Items");
 
             migrationBuilder.DropTable(
                 name: "Workers");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Warehouses");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

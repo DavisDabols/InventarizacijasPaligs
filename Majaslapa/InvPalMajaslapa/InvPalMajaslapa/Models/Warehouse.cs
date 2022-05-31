@@ -9,9 +9,8 @@ namespace InvPalMajaslapa.Models
         [Required(ErrorMessage = "Nosaukums lauks ir obligāts")]
         public string Name { get; set; }
         public string? Address { get; set; }
-        public int Capacity { get; set; } = 0;
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
         public string UserId { get; set; } = "";
-        public List<Items> Items { get; set; }
+        public List<Items> Items { get; set; } = new();
     }
 }

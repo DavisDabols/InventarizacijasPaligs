@@ -51,6 +51,8 @@ namespace InvPalMajaslapa.Controllers
                 obj.Item.Id = Guid.NewGuid();
                 obj.Item.WarehouseId = (Guid)obj.Item.WarehouseId;
                 _db.Items.Add(obj.Item);
+                var Log = new Logs { Id = Guid.NewGuid(), Name = user.Name, Surname = user.Surname, UserId = user.Id, ItemName = obj.Item.Name, Action = 'A' };
+                _db.Logs.Add(Log);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index", new { id = obj.Item.WarehouseId });
             }
@@ -96,6 +98,8 @@ namespace InvPalMajaslapa.Controllers
             {
                 obj.Item.UserId = user.Id;
                 _db.Items.Update(obj.Item);
+                var Log = new Logs { Id = Guid.NewGuid(), Name = user.Name, Surname = user.Surname, UserId = user.Id, ItemName = obj.Item.Name, Action = 'E' };
+                _db.Logs.Add(Log);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index", new { id = obj.Item.WarehouseId });
             }
@@ -125,17 +129,18 @@ namespace InvPalMajaslapa.Controllers
         //POST
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePOST(Guid? id, Guid warehouseId)
+        public async Task<IActionResult> DeletePOST(Guid? id, Guid warehouseId)
         {
+            var user = await userManager.GetUserAsync(User);
             var obj = _db.Items.Find(id);
-            var warehouse = _db.Warehouses.Find(warehouseId);
             if (obj == null)
             {
                 return NotFound();
             }
             _db.Items.Remove(obj);
-            _db.Warehouses.Update(warehouse);
-            _db.SaveChanges();
+            var Log = new Logs { Id = Guid.NewGuid(), Name = user.Name, Surname = user.Surname, UserId = user.Id, ItemName = obj.Name, Action = 'D' };
+            _db.Logs.Add(Log);
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index", new { id = warehouseId });
         }
     }

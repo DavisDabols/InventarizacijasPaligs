@@ -1,16 +1,20 @@
-﻿namespace InvPalMajaslapa.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace InvPalMajaslapa.Models
 {
     public class Logs
     {
+        [Key]
         public Guid Id { get; set; }
-        public Guid WorkerId { get; set; }
-        public Guid UserId { get; set; }
-        public Guid ItemId { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string UserId { get; set; }
+        public string ItemName { get; set; }
         // A: Pievieno
         // D: Dzēš
         // E: Rediģē
         // M: Pārvieto
-        public Char Action { get; set; }
+        public char Action { get; set; }
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
     }
 }

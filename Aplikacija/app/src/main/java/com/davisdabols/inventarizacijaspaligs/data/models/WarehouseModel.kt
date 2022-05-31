@@ -10,6 +10,5 @@ data class WarehouseModel(
     @SerializedName("id") @PrimaryKey val ID : String,
     @SerializedName("name") val Name : String,
     @SerializedName("address") val Address : String? = null,
-    @SerializedName("maxCapacity") val MaxCapacity : Int,
     @SerializedName("userId") val AdminID : String,
 )

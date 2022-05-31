@@ -153,25 +153,25 @@ namespace InvPalMajaslapa.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ItemId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ItemsId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("WorkerId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("ItemsId");
-
-                    b.HasIndex("WorkerId");
 
                     b.ToTable("Logs");
                 });
@@ -187,9 +187,6 @@ namespace InvPalMajaslapa.Migrations
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
@@ -394,16 +391,6 @@ namespace InvPalMajaslapa.Migrations
                     b.HasOne("InvPalMajaslapa.Models.ApplicationUser", null)
                         .WithMany("Logs")
                         .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("InvPalMajaslapa.Models.Items", null)
-                        .WithMany("Logs")
-                        .HasForeignKey("ItemsId");
-
-                    b.HasOne("InvPalMajaslapa.Models.Worker", null)
-                        .WithMany("Logs")
-                        .HasForeignKey("WorkerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("InvPalMajaslapa.Models.Warehouse", b =>
@@ -482,19 +469,9 @@ namespace InvPalMajaslapa.Migrations
                     b.Navigation("Workers");
                 });
 
-            modelBuilder.Entity("InvPalMajaslapa.Models.Items", b =>
-                {
-                    b.Navigation("Logs");
-                });
-
             modelBuilder.Entity("InvPalMajaslapa.Models.Warehouse", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("InvPalMajaslapa.Models.Worker", b =>
-                {
-                    b.Navigation("Logs");
                 });
 #pragma warning restore 612, 618
         }

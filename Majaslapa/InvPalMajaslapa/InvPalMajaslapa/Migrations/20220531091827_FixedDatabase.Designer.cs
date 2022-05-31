@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvPalMajaslapa.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220425171157_FixedApplicationUser")]
-    partial class FixedApplicationUser
+    [Migration("20220531091827_FixedDatabase")]
+    partial class FixedDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -104,6 +104,12 @@ namespace InvPalMajaslapa.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
 
@@ -114,6 +120,9 @@ namespace InvPalMajaslapa.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -123,7 +132,51 @@ namespace InvPalMajaslapa.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("WarehouseId");
+
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("InvPalMajaslapa.Models.Logs", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ItemsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("WorkerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ItemsId");
+
+                    b.HasIndex("WorkerId");
+
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("InvPalMajaslapa.Models.Warehouse", b =>
@@ -137,9 +190,6 @@ namespace InvPalMajaslapa.Migrations
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
@@ -326,6 +376,34 @@ namespace InvPalMajaslapa.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("InvPalMajaslapa.Models.Items", b =>
+                {
+                    b.HasOne("InvPalMajaslapa.Models.ApplicationUser", null)
+                        .WithMany("Items")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("InvPalMajaslapa.Models.Warehouse", null)
+                        .WithMany("Items")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("InvPalMajaslapa.Models.Logs", b =>
+                {
+                    b.HasOne("InvPalMajaslapa.Models.ApplicationUser", null)
+                        .WithMany("Logs")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("InvPalMajaslapa.Models.Items", null)
+                        .WithMany("Logs")
+                        .HasForeignKey("ItemsId");
+
+                    b.HasOne("InvPalMajaslapa.Models.Worker", null)
+                        .WithMany("Logs")
+                        .HasForeignKey("WorkerId");
+                });
+
             modelBuilder.Entity("InvPalMajaslapa.Models.Warehouse", b =>
                 {
                     b.HasOne("InvPalMajaslapa.Models.ApplicationUser", null)
@@ -393,9 +471,28 @@ namespace InvPalMajaslapa.Migrations
 
             modelBuilder.Entity("InvPalMajaslapa.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Items");
+
+                    b.Navigation("Logs");
+
                     b.Navigation("Warehouses");
 
                     b.Navigation("Workers");
+                });
+
+            modelBuilder.Entity("InvPalMajaslapa.Models.Items", b =>
+                {
+                    b.Navigation("Logs");
+                });
+
+            modelBuilder.Entity("InvPalMajaslapa.Models.Warehouse", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("InvPalMajaslapa.Models.Worker", b =>
+                {
+                    b.Navigation("Logs");
                 });
 #pragma warning restore 612, 618
         }

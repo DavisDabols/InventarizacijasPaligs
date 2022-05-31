@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Logs>
+@{
+    ViewData["Title"] = "Profils";
+}
+
+<h1>Notikumu žurnāls</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Notikums</th>
+            <th scope="col">Laiks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+            <tr>
+                @switch(obj.Action)
+                {
+                    case 'A': <td>@obj.Name @obj.Surname pievienoja @obj.ItemName</td>
+                        break;
+
+                    case 'E': <td>@obj.Name @obj.Surname rediģēja @obj.ItemName</td>
+                        break;
+
+                    case 'D': <td>@obj.Name @obj.Surname izdzēsa @obj.ItemName</td>
+                        break;
+
+                    case 'M': <td>@obj.Name @obj.Surname pārvietoja @obj.ItemName</td>
+                        break;
+
+                    default:
+                        <td>Kļūme</td>
+                        break;
+                }
+                <td>@obj.CreatedDateTime</td>
+            </tr>
+        }
+    </tbody>
+</table>

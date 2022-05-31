@@ -95,7 +95,6 @@ class Warehouse
     [Required]
     public string Name { get; set; }
     public string? Address { get; set; }
-    public int Capacity { get; set; }
     public DateTime CreatedDateTime { get; set; } = DateTime.Now;
     public string UserId { get; set; }
 }

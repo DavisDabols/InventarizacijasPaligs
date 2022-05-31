@@ -1,4 +1,5 @@
-﻿using InvPalMajaslapa.Models;
+﻿using InvPalMajaslapa.Data;
+using InvPalMajaslapa.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,12 @@ namespace InvPalMajaslapa.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly ApplicationDbContext _db;
 
-        public ProfileController(UserManager<ApplicationUser> userManager,
+        public ProfileController(ApplicationDbContext db, UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
+            _db = db;
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
@@ -61,6 +64,14 @@ namespace InvPalMajaslapa.Controllers
                 }
             }
             return View(obj);
+        }
+
+        //GET
+        public async Task<IActionResult> Logs()
+        {
+            var user = await userManager.GetUserAsync(User);
+            IQueryable<Logs> logList = _db.Logs.Where(l => l.UserId == user.Id & l.CreatedDateTime > DateTime.Today.AddDays(-5));
+            return View(logList);
         }
     }
 }

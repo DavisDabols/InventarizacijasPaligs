@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvPalMajaslapa.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220214112827_AddedItems")]
-    partial class AddedItems
+    [Migration("20220531095428_UpdatedRelationships")]
+    partial class UpdatedRelationships
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -33,7 +33,6 @@ namespace InvPalMajaslapa.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CompanyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -54,7 +53,6 @@ namespace InvPalMajaslapa.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -78,7 +76,6 @@ namespace InvPalMajaslapa.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -107,16 +104,24 @@ namespace InvPalMajaslapa.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -127,7 +132,50 @@ namespace InvPalMajaslapa.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("WarehouseId");
+
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("InvPalMajaslapa.Models.Logs", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("InvPalMajaslapa.Models.Warehouse", b =>
@@ -137,7 +185,6 @@ namespace InvPalMajaslapa.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApplicationUserId")
@@ -145,9 +192,6 @@ namespace InvPalMajaslapa.Migrations
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("MaxCapacity")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -178,7 +222,6 @@ namespace InvPalMajaslapa.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
@@ -186,7 +229,6 @@ namespace InvPalMajaslapa.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -333,6 +375,26 @@ namespace InvPalMajaslapa.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("InvPalMajaslapa.Models.Items", b =>
+                {
+                    b.HasOne("InvPalMajaslapa.Models.ApplicationUser", null)
+                        .WithMany("Items")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("InvPalMajaslapa.Models.Warehouse", null)
+                        .WithMany("Items")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("InvPalMajaslapa.Models.Logs", b =>
+                {
+                    b.HasOne("InvPalMajaslapa.Models.ApplicationUser", null)
+                        .WithMany("Logs")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
             modelBuilder.Entity("InvPalMajaslapa.Models.Warehouse", b =>
                 {
                     b.HasOne("InvPalMajaslapa.Models.ApplicationUser", null)
@@ -400,9 +462,18 @@ namespace InvPalMajaslapa.Migrations
 
             modelBuilder.Entity("InvPalMajaslapa.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Items");
+
+                    b.Navigation("Logs");
+
                     b.Navigation("Warehouses");
 
                     b.Navigation("Workers");
+                });
+
+            modelBuilder.Entity("InvPalMajaslapa.Models.Warehouse", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
