@@ -35,4 +35,9 @@ interface WorkerApi {
         @Path("itemId") ItemId: String,
         @Body item: ItemsPutModel
     )
+
+    @POST("logs")
+    suspend fun postLogs(
+        @Body log: LogsPostModel
+    )
 }

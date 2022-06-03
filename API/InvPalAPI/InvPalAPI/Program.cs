@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -86,6 +86,16 @@ app.MapPut("/itemsitems/itemId/{Id}", async (Guid Id, Items inputItem, Applicati
     return Results.NoContent();
 });
 
+//POST logs
+app.MapPost("/logs", async (Logs log, ApplicationDbContext db) =>
+{
+    log.Id = Guid.NewGuid();
+    db.Logs.Add(log);
+    await db.SaveChangesAsync();
+
+    return Results.Created($"/logs/{log.Id}", log);
+});
+
 app.Run();
 
 class Warehouse
@@ -103,7 +113,7 @@ class Worker
 {
     [Key]
     public Guid Id { get; set; }
-    public string? Name { get; set; }
+    public string Name { get; set; }
     public string? Surname { get; set; }
     [Required]
     public string Email { get; set; }
@@ -127,6 +137,22 @@ public class Items
     public string UserId { get; set; }
 }
 
+public class Logs
+{
+    [Key]
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+    public string? Surname { get; set; }
+    public string UserId { get; set; }
+    public string ItemName { get; set; }
+    // A: Pievieno
+    // D: Dzēš
+    // E: Rediģē
+    // M: Pārvieto
+    public char Action { get; set; }
+    public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+}
+
 class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -136,4 +162,5 @@ class ApplicationDbContext : DbContext
     public DbSet<Warehouse> Warehouses { get; set; }
     public DbSet<Worker> Workers { get; set; }
     public DbSet<Items> Items { get; set; }
+    public DbSet<Logs> Logs { get; set; }
 }

@@ -70,7 +70,7 @@ namespace InvPalMajaslapa.Controllers
         public async Task<IActionResult> Logs()
         {
             var user = await userManager.GetUserAsync(User);
-            IQueryable<Logs> logList = _db.Logs.Where(l => l.UserId == user.Id & l.CreatedDateTime > DateTime.Today.AddDays(-5));
+            IQueryable<Logs> logList = _db.Logs.Where(l => l.UserId == user.Id & l.CreatedDateTime > DateTime.Today.AddDays(-6)).OrderByDescending(l => l.CreatedDateTime);
             return View(logList);
         }
     }

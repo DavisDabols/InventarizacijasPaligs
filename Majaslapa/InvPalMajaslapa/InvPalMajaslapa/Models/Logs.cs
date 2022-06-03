@@ -7,7 +7,7 @@ namespace InvPalMajaslapa.Models
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Surname { get; set; }
+        public string? Surname { get; set; }
         public string UserId { get; set; }
         public string ItemName { get; set; }
         // A: Pievieno

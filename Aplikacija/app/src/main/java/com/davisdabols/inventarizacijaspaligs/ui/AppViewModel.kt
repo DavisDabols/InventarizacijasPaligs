@@ -102,9 +102,11 @@ class AppViewModel @Inject constructor(
 
     fun postItems(title: String, description: String, count: Int, price: Float) {
         val item = ItemsPostModel(title, description, count, price, selectedWarehouse!!.ID, loggedInUser.value!!.AdminID)
+        val log = LogsPostModel(loggedInUser.value!!.Name, loggedInUser.value!!.Surname, loggedInUser.value!!.AdminID, title, 'A')
         launchIO {
             try {
                 repository.postItems(item)
+                repository.postLogs(log)
             } catch (e: Exception) {
                 _error.emit("Kļūda pievienošanā")
             }
@@ -112,15 +114,19 @@ class AppViewModel @Inject constructor(
     }
 
     fun deleteItems() {
+        val log = LogsPostModel(loggedInUser.value!!.Name, loggedInUser.value!!.Surname, loggedInUser.value!!.AdminID, selectedItem!!.Name, 'D')
         launchIO {
             repository.deleteItems(selectedItem!!.ID)
+            repository.postLogs(log)
         }
     }
 
-    fun updateItems(name: String, description: String?, count: Int, price: Float, warehouseId : String) {
+    fun updateItems(name: String, description: String?, count: Int, price: Float, warehouseId : String, switchedWarehouses: Char) {
         val item = ItemsPutModel(name, description, count, price, warehouseId)
+        val log = LogsPostModel(loggedInUser.value!!.Name, loggedInUser.value!!.Surname, loggedInUser.value!!.AdminID, name, switchedWarehouses)
         launchIO {
             repository.updateItems(selectedItem!!.ID, item)
+            repository.postLogs(log)
         }
     }
 }

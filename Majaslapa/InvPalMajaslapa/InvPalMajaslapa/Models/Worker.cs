@@ -6,7 +6,8 @@ namespace InvPalMajaslapa.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public string? Name { get; set; }
+        [Required(ErrorMessage = "Vārda lauks ir obligāts")]
+        public string Name { get; set; }
         public string? Surname { get; set; }
         [Required(ErrorMessage = "Epasta adrese lauks ir obligāts")]
         public string Email { get; set; }

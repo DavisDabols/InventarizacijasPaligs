@@ -56,4 +56,8 @@ class AppRepository @Inject constructor(
     suspend fun updateItems(id: String, item: ItemsPutModel) {
         api.putItems(id, item)
     }
+
+    suspend fun postLogs(log: LogsPostModel) {
+        api.postLogs(log)
+    }
 }

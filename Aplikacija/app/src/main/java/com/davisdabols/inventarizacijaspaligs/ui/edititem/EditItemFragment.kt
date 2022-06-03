@@ -45,7 +45,8 @@ class EditItemFragment : Fragment() {
                 binding.itemDescriptionInput.text.toString(),
                 binding.itemCountInput.text.toString().toInt(),
                 binding.itemPriceInput.text.toString().toFloat(),
-                viewModel.selectedItem!!.WarehouseID
+                viewModel.selectedItem!!.WarehouseID,
+                'E',
             )
             openFragment(R.id.navigation_items_list)
         }

@@ -26,7 +26,7 @@ namespace InvPalMajaslapa.Controllers
             var viewmodel = warehouse.Select(w =>
             {
                 var totalPrice = w.Items.Aggregate(0m, (current, item) => current + item.Price * item.Count);
-                var capacity = w.Items.Count;
+                var capacity = w.Items.Aggregate(0, (current, item) => current + item.Count);
                 return new WarehousesViewModel()
                 {
                     Id = w.Id,

@@ -32,7 +32,8 @@ class MoveItemFragment: Fragment() {
                 viewModel.selectedItem!!.Description,
                 viewModel.selectedItem!!.Count,
                 viewModel.selectedItem!!.Price,
-                warehouse.ID
+                warehouse.ID,
+                'M',
             )
             openFragment(R.id.navigation_items_list)
         }
