@@ -74,6 +74,8 @@ app.MapPut("/itemsitems/itemId/{Id}", async (Guid Id, Items inputItem, Applicati
 
     item.Name = inputItem.Name;
     item.Description = inputItem.Description;
+    item.Count = inputItem.Count;
+    item.Price = inputItem.Price;
     if (item.WarehouseId != inputItem.WarehouseId)
     {
         var warehouseoutput = await db.Warehouses.FindAsync(item.WarehouseId);
@@ -83,7 +85,7 @@ app.MapPut("/itemsitems/itemId/{Id}", async (Guid Id, Items inputItem, Applicati
 
     await db.SaveChangesAsync();
 
-    return Results.NoContent();
+    return Results.Ok();
 });
 
 //POST logs

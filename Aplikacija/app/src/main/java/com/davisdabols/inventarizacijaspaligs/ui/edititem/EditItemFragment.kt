@@ -32,7 +32,7 @@ class EditItemFragment : Fragment() {
 
         binding.itemTitleInput.setText(viewModel.selectedItem!!.Name)
         binding.itemDescriptionInput.setText(viewModel.selectedItem!!.Description)
-        binding.itemCountInput.setText(viewModel.selectedItem!!.Count)
+        binding.itemCountInput.setText(viewModel.selectedItem!!.Count.toString())
         binding.itemPriceInput.setText(viewModel.selectedItem!!.Price.toString())
 
         binding.closeEditItems.setOnClickListener {
@@ -46,7 +46,7 @@ class EditItemFragment : Fragment() {
                 binding.itemCountInput.text.toString().toInt(),
                 binding.itemPriceInput.text.toString().toFloat(),
                 viewModel.selectedItem!!.WarehouseID,
-                'E',
+                'E'
             )
             openFragment(R.id.navigation_items_list)
         }
