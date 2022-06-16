@@ -2,6 +2,7 @@
 using InvPalMajaslapa.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace InvPalMajaslapa.Controllers
 {
@@ -23,9 +24,9 @@ namespace InvPalMajaslapa.Controllers
         {
             var user = await userManager.GetUserAsync(User);
             var warehouseCount = _db.Warehouses.Count(w => w.UserId == user.Id);
-            var itemCount = _db.Items.Count(i => i.UserId == user.Id);
+            var itemCount = _db.Items.Where(i => i.UserId == user.Id).ToList().Aggregate(0, (current, item) => current + item.Count);
             var workerCount = _db.Workers.Count(w => w.UserId == user.Id);
-            var totalInventoryValue = _db.Items.Where(i => i.UserId == user.Id).ToList().Aggregate(0m, (current, item) => item.Price * item.Count);
+            var totalInventoryValue = _db.Items.Where(i => i.UserId == user.Id).ToList().Aggregate(0m, (current, item) => current + item.Price * item.Count);
             var viewmodel = new UserStatsViewModel()
             {
                 User = user,
@@ -35,6 +36,20 @@ namespace InvPalMajaslapa.Controllers
                 TotalInventoryValue = totalInventoryValue
             };
             return View(viewmodel);
+        }
+
+        public async Task<IActionResult> Csv()
+        {
+            var user = await userManager.GetUserAsync(User);
+            var builder = new StringBuilder();
+            builder.AppendLine("Vārds,Uzvārds,Objekta nosaukums,Darbība,Laiks");
+            IQueryable<Logs> logs = _db.Logs.Where(l => l.UserId == user.Id).OrderByDescending(l => l.CreatedDateTime);
+            foreach (var log in logs)
+            {
+                builder.AppendLine($"{log.Name},{log.Surname},{log.ItemName},{log.Action},{log.CreatedDateTime}");
+            }
+
+            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "notikumi.csv");
         }
 
         //GET
