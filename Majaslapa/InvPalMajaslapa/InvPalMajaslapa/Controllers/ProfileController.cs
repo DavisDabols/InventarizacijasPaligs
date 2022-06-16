@@ -22,7 +22,19 @@ namespace InvPalMajaslapa.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await userManager.GetUserAsync(User);
-            return View(user);
+            var warehouseCount = _db.Warehouses.Count(w => w.UserId == user.Id);
+            var itemCount = _db.Items.Count(i => i.UserId == user.Id);
+            var workerCount = _db.Workers.Count(w => w.UserId == user.Id);
+            var totalInventoryValue = _db.Items.Where(i => i.UserId == user.Id).ToList().Aggregate(0m, (current, item) => item.Price * item.Count);
+            var viewmodel = new UserStatsViewModel()
+            {
+                User = user,
+                WarehouseCount = warehouseCount,
+                ItemCount = itemCount,
+                WorkerCount = workerCount,
+                TotalInventoryValue = totalInventoryValue
+            };
+            return View(viewmodel);
         }
 
         //GET
