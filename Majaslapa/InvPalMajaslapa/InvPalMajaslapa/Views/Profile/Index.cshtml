@@ -13,4 +13,7 @@
 <p><strong>Kopējais objektu skaits:</strong> @Model.ItemCount</p>
 <p><strong>Kopējā objektu vērtība:</strong> @Model.TotalInventoryValue</p>
 <a asp-controller="Profile" asp-action="Edit" class="btn btn-warning" style="float:none">Rediģēt</a>
-@*<a asp-controller="Profile" asp-action="Delete" class="btn btn-danger" style="float:none">Dzēst</a>*@
+@if(@Model.WarehouseCount == 0 && @Model.WorkerCount == 0)
+{
+    <a asp-controller="Profile" asp-action="Delete" class="btn btn-danger" style="float:none">Dzēst</a>
+}

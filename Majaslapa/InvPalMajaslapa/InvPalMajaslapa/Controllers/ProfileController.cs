@@ -100,5 +100,25 @@ namespace InvPalMajaslapa.Controllers
             IQueryable<Logs> logList = _db.Logs.Where(l => l.UserId == user.Id & l.CreatedDateTime > DateTime.Today.AddDays(-6)).OrderByDescending(l => l.CreatedDateTime);
             return View(logList);
         }
+
+        //GET
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> DeletePOST()
+        {
+            var user = await userManager.GetUserAsync(User);
+            var logs = _db.Logs.Where(l => l.UserId == user.Id);
+            foreach (var log in logs)
+            {
+                _db.Logs.Remove(log);
+            }
+            await _db.SaveChangesAsync();
+            await signInManager.SignOutAsync();
+            var result = userManager.DeleteAsync(user);
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
     }
 }

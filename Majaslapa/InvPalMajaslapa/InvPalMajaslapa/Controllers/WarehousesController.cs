@@ -21,7 +21,6 @@ namespace InvPalMajaslapa.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await userManager.GetUserAsync(User);
-            IQueryable<Warehouse> objWarehouseList = _db.Warehouses.Where(w => w.UserId == user.Id);
             var warehouse = _db.Warehouses.Include(w => w.Items).Where(w => w.UserId == user.Id).ToList();
             var viewmodel = warehouse.Select(w =>
             {
