@@ -68,6 +68,24 @@ Projektā tiek izmantots:
 
 [RedirectToAction](https://stackoverflow.com/questions/10785245/redirect-to-action-in-another-controller) - Raksts, kā izmantot RedirectToAction lai aizvestu uz citu kontrolieri
 
+# Uzstādīšanas instrukcijas
+## Mājaslapas instalācija
+Mājaslapu var palaist ievadot saiti pārlūkprogrammā. Ja mājaslapu nepieciešams palaist lokāli, tad: 
+1.Jāinstalē uz datora Visual Studio 2022 Community 
+2.Jāpievieno projekta faili projektam 
+3.Ja nepieciešama lokāla datubāze: 
+3.1.Jānomaina “DefaultConnection” appsettings.json failā uz lokālā servera nosaukumu 
+3.2.Jāuzraksta “update-database” komanda iekš Package Manager Console 
+4.Jānospiež Start poga rīkjoslā 
+
+## Lietotnes instalācija
+Lietotne, atšķirībā no mājaslapas, ir obligāti jāinstalē uz ierīces. Šis process var atšķirties starp ierīcēm un Android versijām, bet lielākoties tas izdarāms šādi: 
+1.Ja tas nav izdarīts, tad atļaut ierīces iestatījumos pārlūkprogrammai instalēt nezināmas lietotnes 
+2.Ielādēt APK failu un atvērt to 
+3.Iziet caur ielādes ekrāniem 
+4.Ja parādās Play Protect aizsardzība pret nezināmu izstrādātāju, tad jānospiež “Install Anyways” poga 
+5.Pēc tā lietotnei būtu jābūt ielādētai un to var palaist no lietotņu saraksta 
+
 # Mājaslapas links
 [Links](https://invpalmajaslapa.azurewebsites.net)
 
