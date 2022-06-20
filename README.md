@@ -1,4 +1,4 @@
-# Inventarizācijas palīgs
+# Noliktavu un to saturošo objektu datu uzskaites sistēma
 
 # Projekta apraksts
 Mazām kompānijām bieži ir problēmas ar savu noliktavu pārvaldi. Tās bieži visu inventarizāciju dara uz papīra lapām vai izmantojot citas metodes, kuras ir lēnas, prasa lielu daudzumu cilvēku un tādējādi kompānijai tas izmaksā lielu daudzumu naudas. Tajā pašā laikā lielas kompānijas kā Amazon, Nike, DHL un citas izmanto speciāli veidota lietotnes savās noliktavās. Tādēļ mans piedāvājums ir lietotne, ar kuras palīdzību, jebkura kompānija var viegli pārvaldīt savas noliktavas izmantojot plaši pieejamas ierīces, piemēram darbinieku telefonus, tādējādi izsekojot ienākošos un izejošos produktus. 
