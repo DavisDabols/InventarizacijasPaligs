@@ -88,7 +88,7 @@ Lietotne, atšķirībā no mājaslapas, ir obligāti jāinstalē uz ierīces. Š
 # Mājaslapas links
 [Links](https://invpalmajaslapa.azurewebsites.net)
 
-# Aplikācijas APK ielāde
+# Lietotnes APK ielāde
 [Links](https://github.com/rvt-prog-kval-22/D42-DavisDabols-inventarizacijasPaligs/raw/main/Aplikacija/invpalapp.apk)
 
 [Tiešsaistes testa links](https://appetize.io/app/af5grhla5vjzj6chmymwg3ium4)
