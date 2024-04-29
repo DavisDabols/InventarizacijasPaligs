@@ -89,4 +89,4 @@ Lietotne, atšķirībā no mājaslapas, ir obligāti jāinstalē uz ierīces. Š
 [Links](https://invpalmajaslapa.azurewebsites.net) (Pašlaik nestrādā, jo Azure datubāzes un web app bezmaksas hostinga plāns beidzās)
 
 # Lietotnes APK ielāde
-[Links](https://github.com/rvt-prog-kval-22/D42-DavisDabols-inventarizacijasPaligs/raw/main/Aplikacija/invpalapp.apk) (Arī nestrādā)
+[Links](https://github.com/rvt-prog-kval-22/D42-DavisDabols-inventarizacijasPaligs/raw/main/Aplikacija/invpalapp.apk) (Arī nestrādā, datubāzes un API hostinga neesamības dēļ)
