@@ -86,9 +86,7 @@ Lietotne, atšķirībā no mājaslapas, ir obligāti jāinstalē uz ierīces. Š
 5. Pēc tā lietotnei būtu jābūt ielādētai un to var palaist no lietotņu saraksta 
 
 # Mājaslapas links
-[Links](https://invpalmajaslapa.azurewebsites.net)
+[Links](https://invpalmajaslapa.azurewebsites.net) (Pašlaik nestrādā, jo Azure datubāzes un web app bezmaksas hostinga plāns beidzās)
 
 # Lietotnes APK ielāde
-[Links](https://github.com/rvt-prog-kval-22/D42-DavisDabols-inventarizacijasPaligs/raw/main/Aplikacija/invpalapp.apk)
-
-[Tiešsaistes testa links](https://appetize.io/app/af5grhla5vjzj6chmymwg3ium4)
+[Links](https://github.com/rvt-prog-kval-22/D42-DavisDabols-inventarizacijasPaligs/raw/main/Aplikacija/invpalapp.apk) (Arī nestrādā)
