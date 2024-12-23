@@ -3,6 +3,7 @@ using InvPalMajaslapa.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace InvPalMajaslapa.Controllers
 {
@@ -18,10 +19,15 @@ namespace InvPalMajaslapa.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchString)
         {
             var user = await userManager.GetUserAsync(User);
             var warehouse = _db.Warehouses.Include(w => w.Items).Where(w => w.UserId == user.Id).ToList();
+            if (searchString != null) 
+            {
+                warehouse = warehouse.Where(w => w.Items.Exists(i => i.Barcode == searchString || i.Name == searchString)).ToList();
+            }
+            
             var viewmodel = warehouse.Select(w =>
             {
                 var totalPrice = w.Items.Aggregate(0m, (current, item) => current + item.Price * item.Count);
