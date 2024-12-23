@@ -11,6 +11,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
+            <th scope="col">Svītrukods</th>
             <th scope="col">Nosaukums</th>
             <th scope="col">Apraksts</th>
             <th scope="col">Skaits</th>
@@ -21,11 +22,12 @@
         @foreach(var obj in Model)
         {
             <tr>
+                <td width="10%">@obj.Barcode</td>
                 <td width="20%">@obj.Name</td>
                 <td width="40%">@obj.Description</td>
-                <td width="10%">@obj.Count</td>
-                <td width="10%">@obj.Price</td>
-                <td width="20%">
+                <td width="7%">@obj.Count</td>
+                <td width="8%">@obj.Price</td>
+                <td width="15%">
                     <div class="btn-group" style="float:right">
                         <a asp-controller="Items" asp-action="Edit" asp-route-id="@obj.Id" asp-route-warehouseId="@ViewBag.WarehouseId" class="btn btn-warning" style="float:none">Rediģēt</a>
                         <a asp-controller="items" asp-action="Delete" asp-route-id="@obj.Id" asp-route-warehouseId="@ViewBag.WarehouseId" class="btn btn-danger" style="float:none">Dzēst</a>

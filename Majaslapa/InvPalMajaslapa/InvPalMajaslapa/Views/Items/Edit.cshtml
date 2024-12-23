@@ -6,6 +6,11 @@
   <fieldset>
 @*      <div asp-validation-summary="All" class="text-danger"></div>*@
     <div class="form-group">
+        <label asp-for="Item.Barcode" class="form-label mt-4">Svītrukods</label>
+        <input asp-for="Item.Barcode" class="form-control">
+        <span asp-validation-for="Item.Barcode" class="text-danger"></span>
+    </div>
+    <div class="form-group">
       <label asp-for="Item.Name" class="form-label mt-4">Nosaukums</label>
       <input asp-for="Item.Name"  class="form-control">
       <span asp-validation-for="Item.Name" class="text-danger"></span>

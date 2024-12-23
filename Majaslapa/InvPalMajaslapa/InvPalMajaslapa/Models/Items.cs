@@ -15,6 +15,7 @@ namespace InvPalMajaslapa.Models
         [Required(ErrorMessage = "Cenas lauks ir obligāts")]
         [RegularExpression(@"^\d+\.\d{0,2}$", ErrorMessage = "Cena ievadīta nepareizi")]
         public decimal Price { get; set; }
+        public string? Barcode {  get; set; }
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
         public Guid WarehouseId { get; set; }
         public string UserId { get; set; } = "";
