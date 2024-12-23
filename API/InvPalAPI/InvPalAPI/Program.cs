@@ -76,6 +76,7 @@ app.MapPut("/itemsitems/itemId/{Id}", async (Guid Id, Items inputItem, Applicati
     item.Description = inputItem.Description;
     item.Count = inputItem.Count;
     item.Price = inputItem.Price;
+    item.Barcode = inputItem.Barcode;
     if (item.WarehouseId != inputItem.WarehouseId)
     {
         var warehouseoutput = await db.Warehouses.FindAsync(item.WarehouseId);
@@ -134,6 +135,7 @@ public class Items
     public string? Description { get; set; }
     public int Count { get; set; }
     public decimal Price { get; set; }
+    public string? Barcode { get; set; }
     public DateTime CreatedDateTime { get; set; } = DateTime.Now;
     public Guid WarehouseId { get; set; }
     public string UserId { get; set; }
