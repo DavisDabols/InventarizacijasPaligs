@@ -19,13 +19,17 @@ namespace InvPalMajaslapa.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(string? searchString)
+        public async Task<IActionResult> Index(string? warehouseString, string? itemString)
         {
             var user = await userManager.GetUserAsync(User);
             var warehouse = _db.Warehouses.Include(w => w.Items).Where(w => w.UserId == user.Id).ToList();
-            if (searchString != null) 
+            if (warehouseString != null)
             {
-                warehouse = warehouse.Where(w => w.Items.Exists(i => i.Barcode == searchString || i.Name == searchString)).ToList();
+                warehouse = warehouse.Where(w => w.Name == warehouseString || w.Address == warehouseString).ToList();
+            }
+            if (itemString != null) 
+            {
+                warehouse = warehouse.Where(w => w.Items.Exists(i => i.Barcode == itemString || i.Name == itemString)).ToList();
             }
             
             var viewmodel = warehouse.Select(w =>
