@@ -25,11 +25,11 @@ namespace InvPalMajaslapa.Controllers
             var warehouse = _db.Warehouses.Include(w => w.Items).Where(w => w.UserId == user.Id).ToList();
             if (warehouseString != null)
             {
-                warehouse = warehouse.Where(w => w.Name == warehouseString || w.Address == warehouseString).ToList();
+                warehouse = warehouse.Where(w => w.Name.Contains(warehouseString) || (w.Address != null && w.Address.Contains(warehouseString))).ToList();
             }
             if (itemString != null) 
             {
-                warehouse = warehouse.Where(w => w.Items.Exists(i => i.Barcode == itemString || i.Name == itemString)).ToList();
+                warehouse = warehouse.Where(w => w.Items.Exists(i => (i.Barcode != null && i.Barcode.Contains(itemString)) || i.Name.Contains(itemString))).ToList();
             }
             
             var viewmodel = warehouse.Select(w =>

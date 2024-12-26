@@ -18,9 +18,13 @@ namespace InvPalMajaslapa.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(Guid? id)
+        public async Task<IActionResult> Index(Guid? id, string? searchString)
         {
             IQueryable<Items> objItemList = _db.Items.Where(w => w.WarehouseId == id);
+            if (searchString != null)
+            {
+                objItemList = objItemList.Where(i => (i.Barcode != null && i.Barcode.Contains(searchString)) || i.Name.Contains(searchString) || (i.Description != null && i.Description.Contains(searchString)));
+            }
             ViewBag.WarehouseId = id;
             TempData["WarehouseId"] = id;
             return View(objItemList);
