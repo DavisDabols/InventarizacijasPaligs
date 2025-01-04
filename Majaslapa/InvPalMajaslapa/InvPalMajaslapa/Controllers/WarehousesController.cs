@@ -29,7 +29,7 @@ namespace InvPalMajaslapa.Controllers
             }
             if (itemString != null) 
             {
-                warehouse = warehouse.Where(w => w.Items.Exists(i => (i.Barcode != null && i.Barcode.Contains(itemString)) || i.Name.Contains(itemString))).ToList();
+                warehouse = warehouse.Where(w => w.Items.Exists(i => (i.Barcode != null && i.Barcode.Contains(itemString)) || i.Name.Contains(itemString) || (i.Description != null && i.Description.Contains(itemString)))).ToList();
             }
             
             var viewmodel = warehouse.Select(w =>
