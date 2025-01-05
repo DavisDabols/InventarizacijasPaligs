@@ -2,6 +2,7 @@ package com.davisdabols.inventarizacijaspaligs.ui.additem
 
 import DecimalDigitsInputFilter
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,14 +36,32 @@ class AddItemFragment : Fragment() {
         binding.itemPriceInput.filters = arrayOf(DecimalDigitsInputFilter(10, 2))
 
         binding.addNewItem.setOnClickListener {
-            viewModel.postItems(
-                binding.itemBarcodeInput.text.toString(),
-                binding.itemTitleInput.text.toString(),
-                binding.itemDescriptionInput.text.toString(),
-                binding.itemCountInput.text.toString().toInt(),
-                binding.itemPriceInput.text.toString().toFloat()
-            )
-            openFragment(R.id.navigation_items_list)
+            if(TextUtils.isEmpty(binding.itemTitleInput.text.toString()))
+            {
+                Toast.makeText(context, "Lauks nosaukums ir obligāts", Toast.LENGTH_SHORT).show()
+            }
+            else if (TextUtils.isEmpty(binding.itemCountInput.text.toString()))
+            {
+                Toast.makeText(context, "Lauks skaits ir obligāts", Toast.LENGTH_SHORT).show()
+            }
+            else if (TextUtils.isEmpty(binding.itemPriceInput.text.toString()))
+            {
+                Toast.makeText(context, "Lauks cena ir obligāts", Toast.LENGTH_SHORT).show()
+            }
+            else if (binding.itemCountInput.text.toString().toInt() < 1 || binding.itemCountInput.text.toString().toInt() > 1000000)
+            {
+                Toast.makeText(context, "Skaitam jābūt starp 1 un 1000000", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                viewModel.postItems(
+                    binding.itemBarcodeInput.text.toString(),
+                    binding.itemTitleInput.text.toString(),
+                    binding.itemDescriptionInput.text.toString(),
+                    binding.itemCountInput.text.toString().toInt(),
+                    binding.itemPriceInput.text.toString().toFloat()
+                )
+                openFragment(R.id.navigation_items_list)
+            }
         }
 
         binding.closeAddItems.setOnClickListener {
