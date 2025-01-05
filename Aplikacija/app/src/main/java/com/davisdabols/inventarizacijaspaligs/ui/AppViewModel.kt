@@ -100,8 +100,8 @@ class AppViewModel @Inject constructor(
         }
     }
 
-    fun postItems(title: String, description: String, count: Int, price: Float) {
-        val item = ItemsPostModel(title, description, count, price, selectedWarehouse!!.ID, loggedInUser.value!!.AdminID)
+    fun postItems(barcode: String?, title: String, description: String, count: Int, price: Float) {
+        val item = ItemsPostModel(barcode, title, description, count, price, selectedWarehouse!!.ID, loggedInUser.value!!.AdminID)
         val log = LogsPostModel(loggedInUser.value!!.Name, loggedInUser.value!!.Surname, loggedInUser.value!!.AdminID, title, 'A')
         launchIO {
             try {
@@ -121,8 +121,8 @@ class AppViewModel @Inject constructor(
         }
     }
 
-    fun updateItems(name: String, description: String?, count: Int, price: Float, warehouseId : String, switchedWarehouses: Char) {
-        val item = ItemsPutModel(name, description, count, price, warehouseId)
+    fun updateItems(barcode: String?, name: String, description: String?, count: Int, price: Float, warehouseId : String, switchedWarehouses: Char) {
+        val item = ItemsPutModel(barcode, name, description, count, price, warehouseId)
         val log = LogsPostModel(loggedInUser.value!!.Name, loggedInUser.value!!.Surname, loggedInUser.value!!.AdminID, name, switchedWarehouses)
         launchIO {
             repository.updateItems(selectedItem!!.ID, item)

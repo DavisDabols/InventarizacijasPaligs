@@ -3,6 +3,7 @@ package com.davisdabols.inventarizacijaspaligs.data.models
 import com.google.gson.annotations.SerializedName
 
 data class ItemsPutModel(
+    @SerializedName("barcode") val Barcode : String?,
     @SerializedName("name") val Name : String,
     @SerializedName("description") val Description : String?,
     @SerializedName("count") val Count : Int,

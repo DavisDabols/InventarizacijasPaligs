@@ -28,6 +28,7 @@ class MoveItemFragment: Fragment() {
             Timber.d("Note item clicked: $warehouse")
             viewModel.selectedWarehouse = warehouse
             viewModel.updateItems(
+                viewModel.selectedItem!!.Barcode,
                 viewModel.selectedItem!!.Name,
                 viewModel.selectedItem!!.Description,
                 viewModel.selectedItem!!.Count,

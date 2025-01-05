@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = ITEMS_TABLE)
 data class ItemsModel (
     @SerializedName("id") @PrimaryKey val ID : String,
+    @SerializedName("barcode") val Barcode : String?,
     @SerializedName("name") val Name : String,
     @SerializedName("description") val Description : String?,
     @SerializedName("count") val Count : Int,

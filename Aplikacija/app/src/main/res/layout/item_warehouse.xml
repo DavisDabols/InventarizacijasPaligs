@@ -45,7 +45,7 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:text="@{item.Address}"
-                tools:text="Kr. Valdemāra iela 1C, Rīga" />
+                tools:text="Raiņa bulvāris 19, Rīga" />
 
         </LinearLayout>
 

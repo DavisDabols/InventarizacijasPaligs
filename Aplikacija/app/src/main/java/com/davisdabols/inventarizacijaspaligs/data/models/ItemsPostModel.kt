@@ -5,6 +5,7 @@ import com.davisdabols.inventarizacijaspaligs.common.ITEMS_TABLE
 import com.google.gson.annotations.SerializedName
 
 data class ItemsPostModel(
+    @SerializedName("barcode") val Barcode : String?,
     @SerializedName("name") val Name : String,
     @SerializedName("description") val Description : String?,
     @SerializedName("count") val Count : Int,

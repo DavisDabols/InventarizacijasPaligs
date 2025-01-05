@@ -36,6 +36,7 @@ class AddItemFragment : Fragment() {
 
         binding.addNewItem.setOnClickListener {
             viewModel.postItems(
+                binding.itemBarcodeInput.text.toString(),
                 binding.itemTitleInput.text.toString(),
                 binding.itemDescriptionInput.text.toString(),
                 binding.itemCountInput.text.toString().toInt(),

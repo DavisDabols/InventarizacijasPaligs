@@ -9,6 +9,7 @@
     <string name="atpakal">Atpakaļ</string>
     <string name="nav_atrastas_preces">Nav atrastas preces</string>
     <string name="pievienot">Pievienot</string>
+    <string name="ievadiet_svitrukodu">Ievadiet svītrukodu</string>
     <string name="ievadiet_nosaukumu">Ievadiet nosaukumu</string>
     <string name="ievadiet_aprakstu">Ievadiet aprakstu</string>
     <string name="dz_st">Dzēst</string>
@@ -16,4 +17,6 @@
     <string name="p_rvietot">Pārvietot</string>
     <string name="ievadiet_skaitu">ievadiet skaitu</string>
     <string name="ievadiet_cenu">Ievadiet cenu</string>
+    <string name="sv_trukods_item_barcode">Svītrukods: </string>
+    <string name="nosaukums_item_name">Nosaukums: @{item.name}</string>
 </resources>

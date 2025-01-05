@@ -18,13 +18,24 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/item_barcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{item.barcode}"
+            tools:text="123456789"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
             android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{item.name}"
+            android:layout_marginTop="8dp"
             tools:text="This is a title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_barcode"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView

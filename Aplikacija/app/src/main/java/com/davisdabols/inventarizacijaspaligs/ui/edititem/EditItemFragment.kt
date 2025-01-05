@@ -30,6 +30,7 @@ class EditItemFragment : Fragment() {
 
         binding.itemPriceInput.filters = arrayOf(DecimalDigitsInputFilter(10, 2))
 
+        binding.itemBarcodeInput.setText(viewModel.selectedItem!!.Barcode)
         binding.itemTitleInput.setText(viewModel.selectedItem!!.Name)
         binding.itemDescriptionInput.setText(viewModel.selectedItem!!.Description)
         binding.itemCountInput.setText(viewModel.selectedItem!!.Count.toString())
@@ -41,6 +42,7 @@ class EditItemFragment : Fragment() {
 
         binding.editItem.setOnClickListener {
             viewModel.updateItems(
+                binding.itemBarcodeInput.text.toString(),
                 binding.itemTitleInput.text.toString(),
                 binding.itemDescriptionInput.text.toString(),
                 binding.itemCountInput.text.toString().toInt(),
