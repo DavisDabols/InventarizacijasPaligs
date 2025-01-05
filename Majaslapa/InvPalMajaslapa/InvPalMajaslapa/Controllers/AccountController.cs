@@ -77,7 +77,7 @@ namespace InvPalMajaslapa.Controllers
                     return RedirectToAction("index", "home");
                 }
 
-                ModelState.AddModelError("", "Invalid Login Attempt");
+                ModelState.AddModelError("InvalidLogin", "Lietotājs nav atrasts");
             }
 
             return View(model);
